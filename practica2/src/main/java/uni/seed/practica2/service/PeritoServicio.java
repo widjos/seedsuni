@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.entity.Perito;
+import uni.seed.practica2.entity.Siniestro;
 import uni.seed.practica2.repository.PeritoRepository;
+import uni.seed.practica2.repository.SiniestroRepository;
 
 @RestController
 @RequestMapping("/perito")
@@ -23,6 +25,9 @@ public class PeritoServicio {
 
 	@Autowired
 	PeritoRepository peritoRepository;
+	
+	@Autowired
+	SiniestroRepository siniestroRepository;
 	
 	@GetMapping(path="/buscar")
 	public List<Perito> buscar(){
@@ -42,8 +47,19 @@ public class PeritoServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/{ciudad}/y/numerovia/{numeroVia}")
-	public List<Perito> buscarCiudadYNumeroVia(@PathVariable String  ciudad, @PathVariable Integer numeroVia){
+	@GetMapping(path="/buscar/{ciudad}/numerovia/{numeroVia}")
+	public List<Perito> buscarCiudadYNumeroVia(@PathVariable String  ciudad, @PathVariable String numeroVia){
 		return peritoRepository.findByCiudadAndNumeroVia(ciudad, numeroVia);
+	}
+	
+	@GetMapping(path="/buscar/{dniPerito}/siniestro")
+	public List<Siniestro> buscarSiniestroPerito(@PathVariable int dniPerito){
+		List<Siniestro> siniestro = siniestroRepository.findAll();
+		for(Siniestro sin : siniestro) {
+			if(sin.getPerito().getDniPerito() != dniPerito) {
+				siniestro.remove(sin);
+			}
+		}
+		return siniestro;
 	}
 }

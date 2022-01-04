@@ -16,5 +16,7 @@ public interface ClienteRepository  extends JpaRepository<Cliente, Serializable>
 	
 	public List<Cliente> findByApellido2OrCiudad(String apellido2, String ciudad);
 	
+	public Cliente findByNombreClStartingWith(String nombreIniciales);
+	
 	
 }

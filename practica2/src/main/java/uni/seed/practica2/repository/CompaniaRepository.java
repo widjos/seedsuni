@@ -12,5 +12,7 @@ import uni.seed.practica2.entity.Compania;
 public interface CompaniaRepository extends JpaRepository<Compania, Serializable> {
 
 	public List<Compania> findByNombreViaOrderByNombreCompaniaDesc(String nombreCompania);
+	
+	public List<Compania> queryByNombreCompaniaContaining(String referencia);
 
 }

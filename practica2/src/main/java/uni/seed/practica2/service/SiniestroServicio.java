@@ -41,9 +41,29 @@ public class SiniestroServicio {
 		return siniestroRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar")
-	public Siniestro guardar(@RequestBody Siniestro  siniestro) {
-		return siniestroRepository.save(siniestro);
+	@PostMapping(path="/guardar/seguro/{numeroPoliza}/perito/{dniPerito}")
+	public Siniestro guardar(@RequestBody Siniestro  siniestro, @PathVariable int numeroPoliza , @PathVariable int dniPerito) {
+		List<Perito> peritoList = peritoRepository.findAll();
+		List<Seguro> seguroList = seguroRepository.findAll();
+		
+		for(Perito  per : peritoList) {
+			if(per.getDniPerito() == dniPerito) {
+				siniestro.setPerito(per);
+			}
+		}
+		
+		for(Seguro seg : seguroList) {
+			if(seg.getNumeroPoliza() == numeroPoliza) {
+				siniestro.setSeguro(seg);
+			}
+		}
+		
+		if(siniestro.getPerito() != null && siniestro.getSeguro() != null) {
+			return siniestroRepository.save(siniestro);
+		}else {
+			return null;
+		}
+		
 	}
 	
 	@PostMapping(path="/guardar/seguro/perito")
@@ -67,5 +87,15 @@ public class SiniestroServicio {
 		if(siniestro.isPresent()) {
 			siniestroRepository.delete(siniestro.get());
 		}
+	}
+	
+	@GetMapping(path="/buscar/perito/{dniPerito}")
+	public List<Siniestro> buscarPorDniPerito(@PathVariable int dniPerito){
+		return siniestroRepository.findByPeritoDniPerito(dniPerito);
+	}
+	
+	@GetMapping(path="/buscar/aceptado/{aceptado}")
+	public List<Siniestro> buscarAceptados(@PathVariable char aceptado){
+		return siniestroRepository.queryByAceptadoLike(aceptado);
 	}
 }

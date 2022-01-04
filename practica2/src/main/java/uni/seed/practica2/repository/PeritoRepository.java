@@ -11,6 +11,7 @@ import uni.seed.practica2.entity.Perito;
 @Repository("peritoRepository")
 public interface PeritoRepository extends JpaRepository<Perito,Serializable> {
 
-	public List<Perito> findByCiudadAndNumeroVia(String ciudad, Integer numeroVia);
+	public List<Perito> findByCiudadAndNumeroVia(String ciudad, String numeroVia);
+	
 	
 }

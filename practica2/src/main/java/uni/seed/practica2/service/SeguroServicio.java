@@ -1,5 +1,6 @@
 package uni.seed.practica2.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uni.seed.practica2.entity.Cliente;
 import uni.seed.practica2.entity.Seguro;
-import uni.seed.practica2.repository.ClienteRepository;
 import uni.seed.practica2.repository.SeguroRepository;
 
 @RestController
@@ -45,5 +44,15 @@ public class SeguroServicio {
 		}
 	}
 	
+	@GetMapping(path="/buscar/fechaInicio/despuesde/{fechaInicio}")
+	public List<Seguro> buscarPorFechaDespues(@PathVariable Date fechaInicio){
+		return seguroRepository.findByFechaInicioAfter(fechaInicio);
+	}
+	
+	
+	@GetMapping(path="/buscar/poliza/{numeroPoliza}")
+	public List<Seguro> buscarPorCompaniaAsc(@PathVariable int numeroPoliza){
+		return seguroRepository.findByNumeroPoliza(numeroPoliza);
+	}
 
 }

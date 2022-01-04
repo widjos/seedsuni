@@ -51,4 +51,10 @@ public class CompaniaServicio {
 	public List<Compania> buscarPorId(@PathVariable String nombreVia){
 		return companiaRepository.findByNombreViaOrderByNombreCompaniaDesc(nombreVia);
 	}
+	
+	
+	@GetMapping(path="/buscar/nombre/contiene/{referencia}")
+	public List<Compania> buscarContieneNombre(@PathVariable String referencia){
+		return companiaRepository.queryByNombreCompaniaContaining(referencia);
+	}
 }

@@ -39,9 +39,28 @@ public class CompaniaSeguroServicio {
 		return companiaSeguroRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar")
-	public CompaniaSeguro guardar(@RequestBody CompaniaSeguro companiaSeguro) {
-		return companiaSeguroRepository.save(companiaSeguro);
+	@PostMapping(path="/guardar/compania/{nombreCompania}/seguro/{numeroPoliza}")
+	public CompaniaSeguro guardar(@RequestBody CompaniaSeguro companiaSeguro, @PathVariable String nombreCompania, @PathVariable int numeroPoliza) {
+		
+		List<Compania> compania = companiaRepository.findAll();
+		List<Seguro> seguro = seguroRepository.findAll();
+		for(Compania com : compania) {
+			if(com.getNombreCompania().equals(nombreCompania)) {
+				companiaSeguro.setCompania(com);
+			}
+		}
+		for(Seguro  seg : seguro) {
+			if(seg.getNumeroPoliza() == numeroPoliza) {
+				companiaSeguro.setSeguro(seg);
+			}
+		}
+		
+		if(companiaSeguro.getCompania() != null && companiaSeguro.getSeguro() != null) {
+			return companiaSeguroRepository.save(companiaSeguro);
+		}else {
+			return null;
+		}
+		
 	}
 	
 	@PostMapping(path="/guardar/compania/y/seguro")
@@ -59,12 +78,17 @@ public class CompaniaSeguroServicio {
 	}
 	
 	
-	@DeleteMapping(path="eliminar/{id}")
+	@DeleteMapping(path="/eliminar/{id}")
 	public void eliminar(@PathVariable Integer id) {
 		Optional<CompaniaSeguro> companiaSeguro = companiaSeguroRepository.findById(id);
 		if(companiaSeguro.isPresent()) {
 			companiaSeguroRepository.delete(companiaSeguro.get());
 		}
+	}
+	
+	@GetMapping(path="/buscar/{id}")
+	public List<CompaniaSeguro> buscarPorId(@PathVariable int id){
+		return companiaSeguroRepository.findById(id);
 	}
 
 }

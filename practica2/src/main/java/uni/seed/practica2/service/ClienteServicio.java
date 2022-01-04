@@ -73,5 +73,9 @@ public class ClienteServicio {
 		return clienteRepository.findByApellido2OrCiudad(apellido2, ciudad);
 	}
 
+	@GetMapping(path="/buscar/nombre/like/{nombreIniciales}")
+	public Cliente buscarNombreLike(@PathVariable String nombreIniciales) {
+		return clienteRepository.findByNombreClStartingWith(nombreIniciales);
+	}
 	
 }
