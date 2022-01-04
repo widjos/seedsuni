@@ -1,11 +1,15 @@
 package uni.seed.practica2.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="PERITO")
@@ -46,6 +50,18 @@ public class Perito implements Serializable{
 	
 	@Column(name="CIUDAD")
 	private String ciudad;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "perito")
+	private List<Siniestro> siniestro;
+	
+	public List<Siniestro> getSiniestro() {
+		return siniestro;
+	}
+
+	public void setSiniestro(List<Siniestro> siniestro) {
+		this.siniestro = siniestro;
+	}
 
 	public Integer getDniPerito() {
 		return dniPerito;

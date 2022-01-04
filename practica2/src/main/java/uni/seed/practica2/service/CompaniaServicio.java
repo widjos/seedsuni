@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.entity.Compania;
 import uni.seed.practica2.repository.CompaniaRepository;
+import uni.seed.practica2.repository.SeguroRepository;
 
 @RestController
 @RequestMapping("/compania")
@@ -23,6 +24,9 @@ public class CompaniaServicio {
 
 	@Autowired
 	CompaniaRepository companiaRepository;
+	
+	@Autowired
+	SeguroRepository seguroRepository;
 	
 	@GetMapping(path="/buscar")
 	public List<Compania> buscar(){
@@ -33,6 +37,7 @@ public class CompaniaServicio {
 	public Compania guardar(@RequestBody Compania compania) {
 		return companiaRepository.save(compania);
 	}
+
 	
 	@DeleteMapping(path="/eliminar/{nombreCompania}")
 	public void eliminar(@PathVariable String nombreCompania) {
@@ -40,5 +45,10 @@ public class CompaniaServicio {
 		if(compania.isPresent()) {
 			companiaRepository.delete(compania.get());
 		}
+	}
+	
+	@GetMapping(path="/buscar/{nombreVia}")
+	public List<Compania> buscarPorId(@PathVariable String nombreVia){
+		return companiaRepository.findByNombreViaOrderByNombreCompaniaDesc(nombreVia);
 	}
 }

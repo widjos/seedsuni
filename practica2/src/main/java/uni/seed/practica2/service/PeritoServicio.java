@@ -17,7 +17,7 @@ import uni.seed.practica2.entity.Perito;
 import uni.seed.practica2.repository.PeritoRepository;
 
 @RestController
-@RequestMapping(name="/perito")
+@RequestMapping("/perito")
 @CrossOrigin
 public class PeritoServicio {
 
@@ -40,5 +40,10 @@ public class PeritoServicio {
 		if(perito.isPresent()) {
 			peritoRepository.delete(perito.get());
 		}
+	}
+	
+	@GetMapping(path="/buscar/{ciudad}/y/numerovia/{numeroVia}")
+	public List<Perito> buscarCiudadYNumeroVia(@PathVariable String  ciudad, @PathVariable Integer numeroVia){
+		return peritoRepository.findByCiudadAndNumeroVia(ciudad, numeroVia);
 	}
 }

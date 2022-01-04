@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uni.seed.practica2.entity.Cliente;
 import uni.seed.practica2.entity.Seguro;
+import uni.seed.practica2.repository.ClienteRepository;
 import uni.seed.practica2.repository.SeguroRepository;
 
 @RestController
-@RequestMapping(name="seguro")
+@RequestMapping("seguro")
 @CrossOrigin
 public class SeguroServicio {
 
 	@Autowired
 	SeguroRepository seguroRepository;
+	
 	
 	@GetMapping(path="/buscar")
 	public List<Seguro> buscar(){
@@ -34,11 +37,13 @@ public class SeguroServicio {
 		return seguroRepository.save(seguro);
 	}
 	
-	@DeleteMapping(path="/delete/{numeroPoliza}")
+	@DeleteMapping(path="/eliminar/{numeroPoliza}")
 	public void eliminar(@PathVariable int numeroPoliza) {
 		Optional<Seguro>  seguro = seguroRepository.findById(numeroPoliza);
 		if(seguro.isPresent()) {
 			seguroRepository.delete(seguro.get());
 		}
 	}
+	
+
 }

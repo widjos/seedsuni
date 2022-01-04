@@ -1,11 +1,16 @@
 package uni.seed.practica2.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="COMPANIA")
@@ -37,6 +42,20 @@ public class Compania implements Serializable{
 	
 	@Column(name="NOTAS")
 	private String notas;
+	
+    @JsonIgnore
+	@OneToMany(mappedBy = "compania")
+	private List<CompaniaSeguro> companiaSeguro;
+
+
+
+	public List<CompaniaSeguro> getCompaniaSeguro() {
+		return companiaSeguro;
+	}
+
+	public void setCompaniaSeguro(List<CompaniaSeguro> companiaSeguro) {
+		this.companiaSeguro = companiaSeguro;
+	}
 
 	public String getNombreCompania() {
 		return nombreCompania;

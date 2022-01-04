@@ -6,6 +6,8 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,11 +32,13 @@ public class Siniestro  implements Serializable{
 	@Column(name="INDENMIZACION")
 	private String indenmizacion;
 	
-	@Column(name="NUMERO_POLIZA")
-	private Integer numeroPoliza;
+	@ManyToOne
+	@JoinColumn(name="numeroPoliza")
+	private Seguro seguro;
 	
-	@Column(name="DNI_PERITO")
-	private  Integer dniPerito;
+	@ManyToOne
+	@JoinColumn(name="dniPerito")
+	private  Perito perito;
 
 	public Integer getIdSiniestro() {
 		return idSiniestro;
@@ -76,21 +80,24 @@ public class Siniestro  implements Serializable{
 		this.indenmizacion = indenmizacion;
 	}
 
-	public Integer getNumeroPoliza() {
-		return numeroPoliza;
+	public Seguro getSeguro() {
+		return seguro;
 	}
 
-	public void setNumeroPoliza(Integer numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
+	public void setSeguro(Seguro seguro) {
+		this.seguro = seguro;
 	}
 
-	public Integer getDniPerito() {
-		return dniPerito;
+	public Perito getPerito() {
+		return perito;
 	}
 
-	public void setDniPerito(Integer dniPerito) {
-		this.dniPerito = dniPerito;
+	public void setPerito(Perito perito) {
+		this.perito = perito;
 	}
+
+
+	
 	
 	
 

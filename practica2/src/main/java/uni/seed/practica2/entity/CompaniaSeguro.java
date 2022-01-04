@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,11 +19,31 @@ public class CompaniaSeguro implements Serializable{
 	@Column(name="ID")
 	private Integer id;
 	
-	@Column(name="NUMERO_POLIZA")
-	private Integer numeroPoliza;
 	
-	@Column(name="NOMBRE_COMPANIA")
-	private String nombreCompania;
+	@ManyToOne
+	@JoinColumn(name="numeroPoliza")
+	private Seguro seguro;
+	
+	@ManyToOne
+	@JoinColumn(name="nombreCompania")
+	private Compania compania;
+	
+
+	public Seguro getSeguro() {
+		return seguro;
+	}
+
+	public void setSeguro(Seguro seguro) {
+		this.seguro = seguro;
+	}
+
+	public Compania getCompania() {
+		return compania;
+	}
+
+	public void setCompania(Compania compania) {
+		this.compania = compania;
+	}
 
 	public Integer getId() {
 		return id;
@@ -31,21 +53,7 @@ public class CompaniaSeguro implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getNumeroPoliza() {
-		return numeroPoliza;
-	}
 
-	public void setNumeroPoliza(Integer numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
-	}
-
-	public String getNombreCompania() {
-		return nombreCompania;
-	}
-
-	public void setNombreCompania(String nombreCompania) {
-		this.nombreCompania = nombreCompania;
-	}
 	
 	
 		

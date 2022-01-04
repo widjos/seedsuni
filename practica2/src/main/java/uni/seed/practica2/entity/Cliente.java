@@ -1,10 +1,13 @@
 package uni.seed.practica2.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -49,6 +52,17 @@ public class Cliente  implements Serializable{
 	
 	@Column(name="OBSERVACIONES")
 	private String observaciones;
+	
+	@OneToMany(mappedBy = "dniCl")
+	private List<Seguro> seguro;
+
+	public List<Seguro> getSeguro() {
+		return seguro;
+	}
+
+	public void setSeguro(List<Seguro> seguro) {
+		this.seguro = seguro;
+	}
 
 	public Integer getDniCl() {
 		return dniCl;

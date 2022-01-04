@@ -2,11 +2,16 @@ package uni.seed.practica2.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="SEGURO")
@@ -31,10 +36,37 @@ public class Seguro  implements Serializable{
 	private String condicionesParticulares;
 	
 	@Column(name="OBSERVACIONES")
-	private String obsercaciones;
+	private String observaciones;
 	
+
 	@Column(name="DNI_CL")
 	private Integer dniCl;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "seguro")
+	private List<CompaniaSeguro> companiaSeguro;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "seguro")
+	private List<Siniestro> siniestro;
+	
+	
+	
+	public List<Siniestro> getSiniestro() {
+		return siniestro;
+	}
+
+	public void setSiniestro(List<Siniestro> siniestro) {
+		this.siniestro = siniestro;
+	}
+
+	public List<CompaniaSeguro> getCompaniaSeguro() {
+		return companiaSeguro;
+	}
+
+	public void setCompaniaSeguro(List<CompaniaSeguro> companiaSeguro) {
+		this.companiaSeguro = companiaSeguro;
+	}
 
 	public Integer getNumeroPoliza() {
 		return numeroPoliza;
@@ -76,12 +108,12 @@ public class Seguro  implements Serializable{
 		this.condicionesParticulares = condicionesParticulares;
 	}
 
-	public String getObsercaciones() {
-		return obsercaciones;
+	public String getObservaciones() {
+		return observaciones;
 	}
 
-	public void setObsercaciones(String obsercaciones) {
-		this.obsercaciones = obsercaciones;
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	public Integer getDniCl() {

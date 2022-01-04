@@ -13,16 +13,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uni.seed.practica2.entity.Compania;
+import uni.seed.practica2.entity.Perito;
+import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.entity.Siniestro;
+import uni.seed.practica2.repository.CompaniaRepository;
+import uni.seed.practica2.repository.PeritoRepository;
+import uni.seed.practica2.repository.SeguroRepository;
 import uni.seed.practica2.repository.SiniestroRepository;
 
 @RestController
-@RequestMapping(name="/siniestro")
+@RequestMapping("/siniestro")
 @CrossOrigin
 public class SiniestroServicio {
 
 	@Autowired
 	SiniestroRepository siniestroRepository;
+	
+	@Autowired
+	SeguroRepository seguroRepository;
+	
+	@Autowired
+	PeritoRepository peritoRepository;
 	
 	@GetMapping(path="/buscar")
 	public List<Siniestro> buscar(){
@@ -34,7 +46,22 @@ public class SiniestroServicio {
 		return siniestroRepository.save(siniestro);
 	}
 	
-	@DeleteMapping(path="/delete/{idSiniestro}")
+	@PostMapping(path="/guardar/seguro/perito")
+	public Siniestro guardarSeguroPerito(@RequestBody Siniestro siniestro) {
+		Seguro seguro = siniestro.getSeguro();
+		siniestro.setSeguro(null);
+		seguroRepository.save(seguro);
+		Perito perito = siniestro.getPerito();
+		siniestro.setPerito(null);
+		seguroRepository.save(seguro);
+		siniestro.setSeguro(seguro);
+		siniestro.setPerito(perito);
+		return siniestroRepository.save(siniestro);
+		
+	}
+	
+	
+	@DeleteMapping(path="/eliminar/{idSiniestro}")
 	public void eliminar(@PathVariable int idSiniestro) {
 		Optional<Siniestro> siniestro = siniestroRepository.findById(idSiniestro);
 		if(siniestro.isPresent()) {
