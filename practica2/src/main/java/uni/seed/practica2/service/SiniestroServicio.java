@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uni.seed.practica2.entity.Compania;
+import uni.seed.practica2.dto.SiniestroDto;
 import uni.seed.practica2.entity.Perito;
 import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.entity.Siniestro;
-import uni.seed.practica2.repository.CompaniaRepository;
 import uni.seed.practica2.repository.PeritoRepository;
 import uni.seed.practica2.repository.SeguroRepository;
 import uni.seed.practica2.repository.SiniestroRepository;
@@ -42,7 +41,8 @@ public class SiniestroServicio {
 	}
 	
 	@PostMapping(path="/guardar/seguro/{numeroPoliza}/perito/{dniPerito}")
-	public Siniestro guardar(@RequestBody Siniestro  siniestro, @PathVariable int numeroPoliza , @PathVariable int dniPerito) {
+	public Siniestro guardar(@RequestBody SiniestroDto  siniestroDto, @PathVariable int numeroPoliza , @PathVariable int dniPerito) {
+		Siniestro siniestro = convertirSiniestroToSiniestroDto(siniestroDto);
 		List<Perito> peritoList = peritoRepository.findAll();
 		List<Seguro> seguroList = seguroRepository.findAll();
 		
@@ -67,7 +67,8 @@ public class SiniestroServicio {
 	}
 	
 	@PostMapping(path="/guardar/seguro/perito")
-	public Siniestro guardarSeguroPerito(@RequestBody Siniestro siniestro) {
+	public Siniestro guardarSeguroPerito(@RequestBody SiniestroDto siniestroDto) {
+		Siniestro siniestro = convertirSiniestroToSiniestroDto(siniestroDto);
 		Seguro seguro = siniestro.getSeguro();
 		siniestro.setSeguro(null);
 		seguroRepository.save(seguro);
@@ -80,6 +81,19 @@ public class SiniestroServicio {
 		
 	}
 	
+	
+	private Siniestro convertirSiniestroToSiniestroDto(SiniestroDto siniestroDto) {
+	
+		Siniestro siniestro = new Siniestro();
+		siniestro.setAceptado(siniestroDto.getAceptado());
+		siniestro.setCausas(siniestroDto.getCausas());
+		siniestro.setFechaSiniestro(siniestroDto.getFechaSiniestro());
+		siniestro.setIdSiniestro(siniestroDto.getIdSiniestro());
+		siniestro.setPerito(siniestroDto.getPerito());
+		siniestro.setSeguro(siniestroDto.getSeguro());
+		siniestro.setIndenmizacion(siniestroDto.getIndenmizacion());
+		return  siniestro;
+	}
 	
 	@DeleteMapping(path="/eliminar/{idSiniestro}")
 	public void eliminar(@PathVariable int idSiniestro) {

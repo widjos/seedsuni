@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uni.seed.practica2.dto.CompaniaDto;
 import uni.seed.practica2.entity.Compania;
 import uni.seed.practica2.repository.CompaniaRepository;
 import uni.seed.practica2.repository.SeguroRepository;
@@ -34,10 +35,28 @@ public class CompaniaServicio {
 	}
 	
 	@PostMapping(path="/guardar")
-	public Compania guardar(@RequestBody Compania compania) {
+	public Compania guardar(@RequestBody CompaniaDto companiaDto) {
+		Compania compania = convertirCompaniaToCompaniaDto(companiaDto);
 		return companiaRepository.save(compania);
 	}
 
+	
+	private Compania convertirCompaniaToCompaniaDto(CompaniaDto companiaDto) {
+		Compania compania = new  Compania();
+		compania.setClaseVia(companiaDto.getClaseVia());
+		compania.setCodPostal(companiaDto.getCodPostal());
+		compania.setCompaniaSeguro(companiaDto.getCompaniaSeguro());
+		compania.setNombreCompania(companiaDto.getNombreCompania());
+		compania.setNombreVia(companiaDto.getNombreVia());
+		compania.setNotas(companiaDto.getNotas());
+		compania.setNumeroVia(companiaDto.getNumeroVia());
+		compania.setNotas(companiaDto.getNotas());
+		compania.setTelefonoContratacion(companiaDto.getTelefonoContratacion());
+		compania.setTelefonoSiniestros(companiaDto.getTelefonoSiniestros());
+		
+		return compania;
+	}
+	
 	
 	@DeleteMapping(path="/eliminar/{nombreCompania}")
 	public void eliminar(@PathVariable String nombreCompania) {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uni.seed.practica2.dto.CompaniaSeguroDto;
 import uni.seed.practica2.entity.Compania;
 import uni.seed.practica2.entity.CompaniaSeguro;
 import uni.seed.practica2.entity.Seguro;
@@ -40,8 +41,8 @@ public class CompaniaSeguroServicio {
 	}
 	
 	@PostMapping(path="/guardar/compania/{nombreCompania}/seguro/{numeroPoliza}")
-	public CompaniaSeguro guardar(@RequestBody CompaniaSeguro companiaSeguro, @PathVariable String nombreCompania, @PathVariable int numeroPoliza) {
-		
+	public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto companiaSeguroDto, @PathVariable String nombreCompania, @PathVariable int numeroPoliza) {
+		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
 		List<Compania> compania = companiaRepository.findAll();
 		List<Seguro> seguro = seguroRepository.findAll();
 		for(Compania com : compania) {
@@ -64,7 +65,8 @@ public class CompaniaSeguroServicio {
 	}
 	
 	@PostMapping(path="/guardar/compania/y/seguro")
-	public CompaniaSeguro guardarCompaniaYSeguro(@RequestBody CompaniaSeguro companiaSeguro) {
+	public CompaniaSeguro guardarCompaniaYSeguro(@RequestBody CompaniaSeguroDto companiaSeguroDto) {
+		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
 		Seguro seguro = companiaSeguro.getSeguro();
 		companiaSeguro.setSeguro(null);
 		seguroRepository.save(seguro);
@@ -75,6 +77,15 @@ public class CompaniaSeguroServicio {
 		companiaSeguro.setSeguro(seguro);
 		return companiaSeguroRepository.save(companiaSeguro);
 		
+	}
+	
+	
+	private CompaniaSeguro convertirCompaniaSeguroToDtoVersion(CompaniaSeguroDto companiaSeguroDto) {
+		CompaniaSeguro companiaSeguro = new CompaniaSeguro();
+		companiaSeguro.setCompania(companiaSeguroDto.getCompania());
+		companiaSeguro.setId(companiaSeguroDto.getId());
+		companiaSeguro.setSeguro(companiaSeguroDto.getSeguro());
+		return companiaSeguro;
 	}
 	
 	

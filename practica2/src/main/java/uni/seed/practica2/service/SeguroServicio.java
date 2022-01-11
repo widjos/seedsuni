@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uni.seed.practica2.dto.SeguroDto;
 import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.repository.SeguroRepository;
 
@@ -32,8 +33,24 @@ public class SeguroServicio {
 	}
 	
 	@PostMapping(path="/guardar")
-	public Seguro guardar(@RequestBody Seguro seguro) {
+	public Seguro guardar(@RequestBody SeguroDto seguroDto) {
+		Seguro seguro = converitSeguroToSeguroDto(seguroDto);
 		return seguroRepository.save(seguro);
+	}
+
+	private Seguro converitSeguroToSeguroDto(SeguroDto seguroDto) {
+		Seguro seguro = new Seguro();
+		seguro.setCompaniaSeguro(seguroDto.getCompaniaSeguro());
+		seguro.setCondicionesParticulares(seguroDto.getCondicionesParticulares());
+		seguro.setDniCl(seguroDto.getDniCl());
+		seguro.setFechaInicio(seguroDto.getFechaInicio());
+		seguro.setFechaVencimiento(seguroDto.getFechaVencimiento());
+		seguro.setNumeroPoliza(seguroDto.getNumeroPoliza());
+		seguro.setObservaciones(seguroDto.getObservaciones());
+		seguro.setRamo(seguro.getRamo());
+		seguro.setSiniestro(seguroDto.getSiniestro());
+		
+		return seguro;
 	}
 	
 	@DeleteMapping(path="/eliminar/{numeroPoliza}")
@@ -47,6 +64,11 @@ public class SeguroServicio {
 	@GetMapping(path="/buscar/fechaInicio/despuesde/{fechaInicio}")
 	public List<Seguro> buscarPorFechaDespues(@PathVariable Date fechaInicio){
 		return seguroRepository.findByFechaInicioAfter(fechaInicio);
+	}
+	
+	@GetMapping(path="/buscar/fechaInicio/{fechaInicio}")
+	public List<Seguro> buscarFechaiInicio(@PathVariable Date fechaInicio){
+		return seguroRepository.findByFechaInicio(fechaInicio);
 	}
 	
 	

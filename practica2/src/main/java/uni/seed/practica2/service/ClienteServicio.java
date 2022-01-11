@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.repository.ClienteRepository;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.dto.ClienteDto;
 import uni.seed.practica2.entity.Cliente;
 import uni.seed.practica2.entity.Seguro;
 
@@ -37,13 +38,32 @@ public class ClienteServicio {
 	}
 	
 	@PostMapping(path="/guardar")
-	public Cliente guardar(@RequestBody Cliente cliente) {
+	public Cliente guardar(@RequestBody ClienteDto clienteDto) {
+		Cliente cliente = convertirClienteToClienteDto(clienteDto);
 		return clienteRepository.save(cliente);
 	}
 	
+	private  Cliente convertirClienteToClienteDto(ClienteDto clienteDto) {
+		Cliente cliente = new Cliente();
+		cliente.setApellido1(clienteDto.getApellido1());
+		cliente.setApellido2(clienteDto.getApellido2());
+		cliente.setCiudad(clienteDto.getCiudad());
+		cliente.setClaseVia(clienteDto.getClaseVia());
+		cliente.setCodPostal(clienteDto.getCodPostal());
+		cliente.setDniCl(clienteDto.getDniCl());
+		cliente.setNombreCl(clienteDto.getNombreCl());
+		cliente.setNombreVia(clienteDto.getNombreVia());
+		cliente.setNumeroVia(clienteDto.getNumeroVia());
+		cliente.setObservaciones(clienteDto.getObservaciones());
+		cliente.setSeguro(clienteDto.getSeguro());
+		cliente.setTelefono(clienteDto.getTelefono());
+		return cliente;
+	}
+	
+	
 	@PostMapping(path="/guardar/seguro")
-	public Cliente guardarSeguro(@RequestBody Cliente cliente) {
-		
+	public Cliente guardarSeguro(@RequestBody ClienteDto clienteDto) {
+		Cliente cliente = convertirClienteToClienteDto(clienteDto);
 		List<Seguro> seguro = cliente.getSeguro();
 		cliente.setSeguro(null);
 		clienteRepository.save(cliente);
