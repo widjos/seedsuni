@@ -1,17 +1,12 @@
-package uni.seed.practica2.service;
+package uni.seed.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.dto.CompaniaSeguroDto;
 import uni.seed.practica2.entity.Compania;
@@ -20,11 +15,10 @@ import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.repository.CompaniaRepository;
 import uni.seed.practica2.repository.CompaniaSeguroRepository;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.ws.CompaniaSeguroServicioInt;
 
-@RestController
-@RequestMapping("/companiaseguro")
-@CrossOrigin
-public class CompaniaSeguroServicio {
+@Component
+public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	
 	@Autowired
 	CompaniaSeguroRepository companiaSeguroRepository;
@@ -35,12 +29,12 @@ public class CompaniaSeguroServicio {
 	@Autowired
 	CompaniaRepository companiaRepository;
 	
-	@GetMapping(path="/buscar")
+	@Override
 	public List<CompaniaSeguro>  buscar(){
 		return companiaSeguroRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar/compania/{nombreCompania}/seguro/{numeroPoliza}")
+	@Override
 	public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto companiaSeguroDto, @PathVariable String nombreCompania, @PathVariable int numeroPoliza) {
 		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
 		List<Compania> compania = companiaRepository.findAll();
@@ -64,7 +58,7 @@ public class CompaniaSeguroServicio {
 		
 	}
 	
-	@PostMapping(path="/guardar/compania/y/seguro")
+	@Override
 	public CompaniaSeguro guardarCompaniaYSeguro(@RequestBody CompaniaSeguroDto companiaSeguroDto) {
 		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
 		Seguro seguro = companiaSeguro.getSeguro();
@@ -89,7 +83,7 @@ public class CompaniaSeguroServicio {
 	}
 	
 	
-	@DeleteMapping(path="/eliminar/{id}")
+	@Override
 	public void eliminar(@PathVariable Integer id) {
 		Optional<CompaniaSeguro> companiaSeguro = companiaSeguroRepository.findById(id);
 		if(companiaSeguro.isPresent()) {
@@ -97,7 +91,7 @@ public class CompaniaSeguroServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/{id}")
+	@Override
 	public List<CompaniaSeguro> buscarPorId(@PathVariable int id){
 		return companiaSeguroRepository.findById(id);
 	}

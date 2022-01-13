@@ -1,27 +1,22 @@
-package uni.seed.practica2.service;
+package uni.seed.practica2.impl;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.dto.SeguroDto;
 import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.ws.SeguroServicioInt;
 
-@RestController
-@RequestMapping("seguro")
-@CrossOrigin
-public class SeguroServicio {
+@Component
+public class SeguroServicio implements SeguroServicioInt {
 
 	@Autowired
 	SeguroRepository seguroRepository;
@@ -32,7 +27,7 @@ public class SeguroServicio {
 		return seguroRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar")
+	@Override
 	public Seguro guardar(@RequestBody SeguroDto seguroDto) {
 		Seguro seguro = converitSeguroToSeguroDto(seguroDto);
 		return seguroRepository.save(seguro);
@@ -53,7 +48,7 @@ public class SeguroServicio {
 		return seguro;
 	}
 	
-	@DeleteMapping(path="/eliminar/{numeroPoliza}")
+	@Override
 	public void eliminar(@PathVariable int numeroPoliza) {
 		Optional<Seguro>  seguro = seguroRepository.findById(numeroPoliza);
 		if(seguro.isPresent()) {
@@ -61,18 +56,18 @@ public class SeguroServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/fechaInicio/despuesde/{fechaInicio}")
+	@Override
 	public List<Seguro> buscarPorFechaDespues(@PathVariable Date fechaInicio){
 		return seguroRepository.findByFechaInicioAfter(fechaInicio);
 	}
 	
-	@GetMapping(path="/buscar/fechaInicio/{fechaInicio}")
+	@Override
 	public List<Seguro> buscarFechaiInicio(@PathVariable Date fechaInicio){
 		return seguroRepository.findByFechaInicio(fechaInicio);
 	}
 	
 	
-	@GetMapping(path="/buscar/poliza/{numeroPoliza}")
+	@Override
 	public List<Seguro> buscarPorCompaniaAsc(@PathVariable int numeroPoliza){
 		return seguroRepository.findByNumeroPoliza(numeroPoliza);
 	}

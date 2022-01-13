@@ -1,27 +1,21 @@
-package uni.seed.practica2.service;
+package uni.seed.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.dto.CompaniaDto;
 import uni.seed.practica2.entity.Compania;
 import uni.seed.practica2.repository.CompaniaRepository;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.ws.CompaniaServicioInt;
 
-@RestController
-@RequestMapping("/compania")
-@CrossOrigin
-public class CompaniaServicio {
+@Component
+public class CompaniaServicio implements CompaniaServicioInt {
 
 	@Autowired
 	CompaniaRepository companiaRepository;
@@ -29,12 +23,12 @@ public class CompaniaServicio {
 	@Autowired
 	SeguroRepository seguroRepository;
 	
-	@GetMapping(path="/buscar")
+	@Override
 	public List<Compania> buscar(){
 		return companiaRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar")
+	@Override
 	public Compania guardar(@RequestBody CompaniaDto companiaDto) {
 		Compania compania = convertirCompaniaToCompaniaDto(companiaDto);
 		return companiaRepository.save(compania);
@@ -58,7 +52,7 @@ public class CompaniaServicio {
 	}
 	
 	
-	@DeleteMapping(path="/eliminar/{nombreCompania}")
+	@Override
 	public void eliminar(@PathVariable String nombreCompania) {
 		Optional<Compania> compania = companiaRepository.findById(nombreCompania);
 		if(compania.isPresent()) {
@@ -66,13 +60,13 @@ public class CompaniaServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/{nombreVia}")
+	@Override
 	public List<Compania> buscarPorId(@PathVariable String nombreVia){
 		return companiaRepository.findByNombreViaOrderByNombreCompaniaDesc(nombreVia);
 	}
 	
 	
-	@GetMapping(path="/buscar/nombre/contiene/{referencia}")
+	@Override
 	public List<Compania> buscarContieneNombre(@PathVariable String referencia){
 		return companiaRepository.queryByNombreCompaniaContaining(referencia);
 	}

@@ -1,28 +1,23 @@
-package uni.seed.practica2.service;
+package uni.seed.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import uni.seed.practica2.dto.PeritoDto;
 import uni.seed.practica2.entity.Perito;
 import uni.seed.practica2.entity.Siniestro;
 import uni.seed.practica2.repository.PeritoRepository;
 import uni.seed.practica2.repository.SiniestroRepository;
+import uni.seed.practica2.ws.PeritoServicioInt;
 
-@RestController
-@RequestMapping("/perito")
-@CrossOrigin
-public class PeritoServicio {
+@Component
+public class PeritoServicio implements PeritoServicioInt{
 
 	@Autowired
 	PeritoRepository peritoRepository;
@@ -30,12 +25,12 @@ public class PeritoServicio {
 	@Autowired
 	SiniestroRepository siniestroRepository;
 	
-	@GetMapping(path="/buscar")
+	@Override
 	public List<Perito> buscar(){
 		return peritoRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar")
+	@Override
 	public Perito guardar(@RequestBody PeritoDto peritoDto){
 		Perito perito = convertirPeritoToPeritoDto(peritoDto);
 		return peritoRepository.save(perito);
@@ -58,7 +53,7 @@ public class PeritoServicio {
 		return perito;
 	}
 	
-	@DeleteMapping(path="/eliminar/{dniPerito}")
+	@Override
 	public void eliminar(@PathVariable Integer dniPerito){
 		Optional<Perito> perito = peritoRepository.findById(dniPerito);
 		if(perito.isPresent()) {
@@ -66,12 +61,12 @@ public class PeritoServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/{ciudad}/numerovia/{numeroVia}")
+	@Override
 	public List<Perito> buscarCiudadYNumeroVia(@PathVariable String  ciudad, @PathVariable String numeroVia){
 		return peritoRepository.findByCiudadAndNumeroVia(ciudad, numeroVia);
 	}
 	
-	@GetMapping(path="/buscar/{dniPerito}/siniestro")
+	@Override
 	public List<Siniestro> buscarSiniestroPerito(@PathVariable int dniPerito){
 		List<Siniestro> siniestro = siniestroRepository.findAll();
 		for(Siniestro sin : siniestro) {

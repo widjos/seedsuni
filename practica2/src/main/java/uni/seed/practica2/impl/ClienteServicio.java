@@ -1,30 +1,22 @@
-package uni.seed.practica2.service;
+package uni.seed.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-
 
 import uni.seed.practica2.repository.ClienteRepository;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.ws.ClienteServicioInt;
 import uni.seed.practica2.dto.ClienteDto;
 import uni.seed.practica2.entity.Cliente;
 import uni.seed.practica2.entity.Seguro;
 
-@RestController
-@RequestMapping("/cliente")
-@CrossOrigin
-public class ClienteServicio {
+@Component
+public class ClienteServicio implements ClienteServicioInt {
 	
 	@Autowired 
 	ClienteRepository clienteRepository;
@@ -32,12 +24,12 @@ public class ClienteServicio {
 	@Autowired
 	SeguroRepository seguroRepository;
 	
-	@GetMapping(path = "/buscar")
+	@Override
 	public List<Cliente> buscar(){
 		return clienteRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar")
+	@Override
 	public Cliente guardar(@RequestBody ClienteDto clienteDto) {
 		Cliente cliente = convertirClienteToClienteDto(clienteDto);
 		return clienteRepository.save(cliente);
@@ -61,7 +53,7 @@ public class ClienteServicio {
 	}
 	
 	
-	@PostMapping(path="/guardar/seguro")
+	@Override
 	public Cliente guardarSeguro(@RequestBody ClienteDto clienteDto) {
 		Cliente cliente = convertirClienteToClienteDto(clienteDto);
 		List<Seguro> seguro = cliente.getSeguro();
@@ -75,7 +67,7 @@ public class ClienteServicio {
 		return cliente;
 	}
 	
-	@DeleteMapping(path="/eliminar/{dniCl}")
+	@Override
 	public void eliminar(@PathVariable("dniCl") int dniCl) {
 		Optional<Cliente> cliente = clienteRepository.findById(dniCl);
 		if(cliente.isPresent()) {
@@ -83,17 +75,17 @@ public class ClienteServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/nombre/{nombreCl}/and/{apellido1}")
+	@Override
 	public List<Cliente> buscarNombreYApellido1(@PathVariable String nombreCl, @PathVariable String apellido1){
 		return clienteRepository.findByNombreClAndApellido1(nombreCl, apellido1);
 	}
 	
-	@GetMapping(path="/buscar/apellido2/{apellido2}/or/ciudad/{ciudad}")
+	@Override
 	public List<Cliente> buscarApellido2OCiudad(@PathVariable String apellido2, @PathVariable String  ciudad){
 		return clienteRepository.findByApellido2OrCiudad(apellido2, ciudad);
 	}
 
-	@GetMapping(path="/buscar/nombre/like/{nombreIniciales}")
+	@Override
 	public Cliente buscarNombreLike(@PathVariable String nombreIniciales) {
 		return clienteRepository.findByNombreClStartingWith(nombreIniciales);
 	}

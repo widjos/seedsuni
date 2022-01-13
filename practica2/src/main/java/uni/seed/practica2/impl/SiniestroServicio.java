@@ -1,17 +1,12 @@
-package uni.seed.practica2.service;
+package uni.seed.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import uni.seed.practica2.dto.SiniestroDto;
 import uni.seed.practica2.entity.Perito;
@@ -20,11 +15,10 @@ import uni.seed.practica2.entity.Siniestro;
 import uni.seed.practica2.repository.PeritoRepository;
 import uni.seed.practica2.repository.SeguroRepository;
 import uni.seed.practica2.repository.SiniestroRepository;
+import uni.seed.practica2.ws.SiniestroServicioInt;
 
-@RestController
-@RequestMapping("/siniestro")
-@CrossOrigin
-public class SiniestroServicio {
+@Component
+public class SiniestroServicio implements SiniestroServicioInt{
 
 	@Autowired
 	SiniestroRepository siniestroRepository;
@@ -35,12 +29,12 @@ public class SiniestroServicio {
 	@Autowired
 	PeritoRepository peritoRepository;
 	
-	@GetMapping(path="/buscar")
+	@Override
 	public List<Siniestro> buscar(){
 		return siniestroRepository.findAll();
 	}
 	
-	@PostMapping(path="/guardar/seguro/{numeroPoliza}/perito/{dniPerito}")
+	@Override
 	public Siniestro guardar(@RequestBody SiniestroDto  siniestroDto, @PathVariable int numeroPoliza , @PathVariable int dniPerito) {
 		Siniestro siniestro = convertirSiniestroToSiniestroDto(siniestroDto);
 		List<Perito> peritoList = peritoRepository.findAll();
@@ -66,7 +60,7 @@ public class SiniestroServicio {
 		
 	}
 	
-	@PostMapping(path="/guardar/seguro/perito")
+	@Override
 	public Siniestro guardarSeguroPerito(@RequestBody SiniestroDto siniestroDto) {
 		Siniestro siniestro = convertirSiniestroToSiniestroDto(siniestroDto);
 		Seguro seguro = siniestro.getSeguro();
@@ -95,7 +89,7 @@ public class SiniestroServicio {
 		return  siniestro;
 	}
 	
-	@DeleteMapping(path="/eliminar/{idSiniestro}")
+	@Override
 	public void eliminar(@PathVariable int idSiniestro) {
 		Optional<Siniestro> siniestro = siniestroRepository.findById(idSiniestro);
 		if(siniestro.isPresent()) {
@@ -103,12 +97,12 @@ public class SiniestroServicio {
 		}
 	}
 	
-	@GetMapping(path="/buscar/perito/{dniPerito}")
+	@Override
 	public List<Siniestro> buscarPorDniPerito(@PathVariable int dniPerito){
 		return siniestroRepository.findByPeritoDniPerito(dniPerito);
 	}
 	
-	@GetMapping(path="/buscar/aceptado/{aceptado}")
+	@Override
 	public List<Siniestro> buscarAceptados(@PathVariable char aceptado){
 		return siniestroRepository.queryByAceptadoLike(aceptado);
 	}
