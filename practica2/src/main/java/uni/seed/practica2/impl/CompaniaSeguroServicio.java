@@ -15,6 +15,7 @@ import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.repository.CompaniaRepository;
 import uni.seed.practica2.repository.CompaniaSeguroRepository;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.service.CatalogoServicio;
 import uni.seed.practica2.ws.CompaniaSeguroServicioInt;
 
 @Component
@@ -28,6 +29,9 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	
 	@Autowired
 	CompaniaRepository companiaRepository;
+	
+	@Autowired
+	CatalogoServicio catalogoServicio;
 	
 	@Override
 	public List<CompaniaSeguro>  buscar(){
@@ -94,6 +98,11 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	@Override
 	public List<CompaniaSeguro> buscarPorId(@PathVariable int id){
 		return companiaSeguroRepository.findById(id);
+	}
+
+	@Override
+	public int eliminarCompaniaSeguro(@PathVariable Integer id) {
+		return  catalogoServicio.eliminarCompaniaSeguro(id);
 	}
 
 }

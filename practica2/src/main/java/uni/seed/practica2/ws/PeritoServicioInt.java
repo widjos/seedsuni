@@ -20,6 +20,8 @@ import uni.seed.practica2.entity.Siniestro;
 @CrossOrigin
 public interface PeritoServicioInt {
 	
+
+	
 	@GetMapping(path="/buscar")
 	public List<Perito> buscar();
 	
@@ -34,5 +36,10 @@ public interface PeritoServicioInt {
 	
 	@GetMapping(path="/buscar/{dniPerito}/siniestro")
 	public List<Siniestro> buscarSiniestroPerito(@PathVariable int dniPerito);
+	
+	@PostMapping(path="/nuevo")
+	public int  nuevoPerito(Perito nuevoPerito);
+	
+	
 
 }

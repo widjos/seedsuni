@@ -1,6 +1,7 @@
 package uni.seed.practica2.ws;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,4 +41,10 @@ public interface ClienteServicioInt {
 	
 	@GetMapping(path="/buscar/nombre/like/{nombreIniciales}")
 	public Cliente buscarNombreLike(@PathVariable String nombreIniciales);
+	
+	@GetMapping(path="/buscar/seguro")
+	public List<Map<String, Object>> buscarClienteSeguro();
+	
+	@PostMapping(path="/update/{dniCl}/codigo/{codPostal}")
+	public int updateClienteCodigoPostal(@PathVariable int dniCl, @PathVariable int codPostal);
 }

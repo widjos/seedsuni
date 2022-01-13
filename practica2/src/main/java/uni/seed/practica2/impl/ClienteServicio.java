@@ -1,6 +1,7 @@
 package uni.seed.practica2.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import uni.seed.practica2.repository.ClienteRepository;
 import uni.seed.practica2.repository.SeguroRepository;
+import uni.seed.practica2.service.CatalogoServicio;
 import uni.seed.practica2.ws.ClienteServicioInt;
 import uni.seed.practica2.dto.ClienteDto;
 import uni.seed.practica2.entity.Cliente;
@@ -23,6 +25,9 @@ public class ClienteServicio implements ClienteServicioInt {
 	
 	@Autowired
 	SeguroRepository seguroRepository;
+	
+	@Autowired
+	CatalogoServicio catalogoServicio;
 	
 	@Override
 	public List<Cliente> buscar(){
@@ -88,6 +93,16 @@ public class ClienteServicio implements ClienteServicioInt {
 	@Override
 	public Cliente buscarNombreLike(@PathVariable String nombreIniciales) {
 		return clienteRepository.findByNombreClStartingWith(nombreIniciales);
+	}
+
+	@Override
+	public List<Map<String, Object>> buscarClienteSeguro() {
+		return catalogoServicio.buscarClienteSeguro();
+	}
+
+	@Override
+	public int updateClienteCodigoPostal(int codPostal, int dniCl) {
+		return catalogoServicio.updateClienteCodigoPostal(codPostal, dniCl);
 	}
 	
 }

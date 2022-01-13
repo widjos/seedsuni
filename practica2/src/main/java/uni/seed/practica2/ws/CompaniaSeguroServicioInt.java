@@ -34,5 +34,7 @@ public interface CompaniaSeguroServicioInt {
 	@GetMapping(path="/buscar/{id}")
 	public List<CompaniaSeguro> buscarPorId(@PathVariable int id);
 	
+	@DeleteMapping(path="/eliminar/sql/{id}")
+	public int eliminarCompaniaSeguro(Integer id);
 
 }

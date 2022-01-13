@@ -14,6 +14,7 @@ import uni.seed.practica2.entity.Perito;
 import uni.seed.practica2.entity.Siniestro;
 import uni.seed.practica2.repository.PeritoRepository;
 import uni.seed.practica2.repository.SiniestroRepository;
+import uni.seed.practica2.service.CatalogoServicio;
 import uni.seed.practica2.ws.PeritoServicioInt;
 
 @Component
@@ -24,6 +25,9 @@ public class PeritoServicio implements PeritoServicioInt{
 	
 	@Autowired
 	SiniestroRepository siniestroRepository;
+	
+	@Autowired
+	CatalogoServicio catalogoServicio;
 	
 	@Override
 	public List<Perito> buscar(){
@@ -75,5 +79,10 @@ public class PeritoServicio implements PeritoServicioInt{
 			}
 		}
 		return siniestro;
+	}
+
+	@Override
+	public int nuevoPerito(@RequestBody Perito nuevoPerito) {
+		return catalogoServicio.nuevoPerito(nuevoPerito);
 	}
 }
