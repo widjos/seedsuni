@@ -38,8 +38,8 @@ public interface PeritoServicioInt {
 	public List<Siniestro> buscarSiniestroPerito(@PathVariable int dniPerito);
 	
 	@PostMapping(path="/nuevo")
-	public int  nuevoPerito(Perito nuevoPerito);
+	public int  nuevoPerito(PeritoDto peritoDto);
 	
-	
+
 
 }

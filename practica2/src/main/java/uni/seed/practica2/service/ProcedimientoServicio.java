@@ -26,7 +26,8 @@ public class ProcedimientoServicio {
 	
 	@Autowired
 	JdbcTemplate  jdbcTemplate;
-	
+
+	private final static String VALOR = "valor";
 
 	public int cambiarNumeroCliente(Integer dniCl, Integer telefono) {
 		String query = "begin "
@@ -58,8 +59,8 @@ public class ProcedimientoServicio {
 		
 		ProcedimientoClienteSeguroDto dto = new ProcedimientoClienteSeguroDto();
 		
-		dto.setOut_fechaInicio( (Date) out.get("out_fechaInicio"));
-		dto.setOut_nombreCliente(out.get("out_nombreCliente").toString());
+		dto.setOutfechaInicio( (Date) out.get("out_fechaInicio"));
+		dto.setOutNombreCliente(out.get("out_nombreCliente").toString());
 		return dto;
 	}
 
@@ -68,15 +69,15 @@ public class ProcedimientoServicio {
 		SimpleJdbcCall simpleJdbcCall = new  SimpleJdbcCall(jdbcTemplate);
 		simpleJdbcCall.withProcedureName("PR_TASADECAMBIO")
 			.withoutProcedureColumnMetaDataAccess().declareParameters(
-					new SqlInOutParameter("valor", Types.NUMERIC)
+					new SqlInOutParameter(VALOR, Types.NUMERIC)
 					);
 	
 		SqlParameterSource nameParameter = new  MapSqlParameterSource()
-				.addValue("valor", valor);
+				.addValue(VALOR, valor);
 		
 		Map<String, Object>  out =  simpleJdbcCall.execute(nameParameter);
 		
-		return Double.parseDouble(out.get("valor").toString());
+		return Double.parseDouble(out.get(VALOR).toString());
 	}
 
 

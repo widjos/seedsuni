@@ -82,7 +82,10 @@ public class PeritoServicio implements PeritoServicioInt{
 	}
 
 	@Override
-	public int nuevoPerito(@RequestBody Perito nuevoPerito) {
-		return catalogoServicio.nuevoPerito(nuevoPerito);
+	public int nuevoPerito(PeritoDto peritoDto) {
+		return 1;
+		
 	}
+
+
 }

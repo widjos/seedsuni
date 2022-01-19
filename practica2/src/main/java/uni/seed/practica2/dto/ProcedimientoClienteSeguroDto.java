@@ -8,22 +8,22 @@ public class ProcedimientoClienteSeguroDto  implements Serializable{
 	private static final long serialVersionUID = 6510484911370825312L;
 	
 	
-	private String out_nombreCliente;
-	private Date out_fechaInicio;
+	private String outNombreCliente;
+	private Date outFechaInicio;
 
 	
-	public String getOut_nombreCliente() {
-		return out_nombreCliente;
+	public String getOutNombreCliente() {
+		return outNombreCliente;
 	}
-	public void setOut_nombreCliente(String out_nombreCliente) {
-		this.out_nombreCliente = out_nombreCliente;
+	public void setOutNombreCliente(String outNombreCliente) {
+		this.outNombreCliente = outNombreCliente;
 	}
 
-	public Date getOut_fechaInicio() {
-		return out_fechaInicio;
+	public Date getOutFechaInicio() {
+		return outFechaInicio;
 	}
-	public void setOut_fechaInicio(Date out_fechaInicio) {
-		this.out_fechaInicio = out_fechaInicio;
+	public void setOutfechaInicio(Date outFechaInicio) {
+		this.outFechaInicio = outFechaInicio;
 	}
 	
 	

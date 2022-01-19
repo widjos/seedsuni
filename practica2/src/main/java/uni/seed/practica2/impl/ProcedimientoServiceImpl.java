@@ -23,8 +23,7 @@ public class ProcedimientoServiceImpl  implements ProcedimientoServicioInt{
 
 	@Override
 	public double conversionTasa(Double valor) {
-		// TODO Auto-generated method stub
-		return 0;
+		return procedimientoServicio.conversionTasa(valor);
 	}
 
 
