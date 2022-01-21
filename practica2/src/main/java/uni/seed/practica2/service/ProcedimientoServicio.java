@@ -27,7 +27,7 @@ public class ProcedimientoServicio {
 	@Autowired
 	JdbcTemplate  jdbcTemplate;
 
-	private final static String VALOR = "valor";
+	private static final  String VALOR = "valor";
 
 	public int cambiarNumeroCliente(Integer dniCl, Integer telefono) {
 		String query = "begin "
