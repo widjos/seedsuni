@@ -23,14 +23,15 @@ public class FunctionService {
 	
 	@Autowired
 	JdbcTemplate  jdbcTemplate;
+
 	
 	public Integer nuevoSeguro(Seguro seguro) {
 		
 		SimpleJdbcCall simpleJdbcCall = new  SimpleJdbcCall(jdbcTemplate);
-		simpleJdbcCall.withFunctionName("FC_NUEVA_POLIZA").withCatalogName("EMP_FUNCION").
-		withoutProcedureColumnMetaDataAccess().declareParameters(
+		simpleJdbcCall.withFunctionName("FC_NUEVA_POLIZA").withCatalogName("pkg_practica2").
+		declareParameters(
 				new SqlParameter("numeroPoliza", Types.NUMERIC),
-				new SqlParameter("ramo", Types.VARCHAR),
+				new SqlParameter("rama", Types.VARCHAR),
 				new SqlParameter("fechaInicio", Types.DATE),
 				new SqlParameter("fechaVencimiento", Types.DATE),
 				new SqlParameter("condParticulares", Types.VARCHAR),
@@ -40,7 +41,7 @@ public class FunctionService {
 		
 		SqlParameterSource nameParameter = new  MapSqlParameterSource()
 				.addValue("numeroPoliza", seguro.getNumeroPoliza())
-				.addValue("ramo", seguro.getRamo())
+				.addValue("rama", seguro.getRamo())
 				.addValue("fechaInicio", seguro.getFechaInicio())
 				.addValue("fechaVencimiento", seguro.getFechaVencimiento())
 				.addValue("condParticulares", seguro.getCondicionesParticulares())

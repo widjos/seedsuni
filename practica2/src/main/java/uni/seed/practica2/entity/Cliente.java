@@ -6,8 +6,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -19,7 +22,9 @@ public class Cliente  implements Serializable{
 	private static final long serialVersionUID = 3493288337097925498L;
 	
 	
-	@Id 
+	@Id
+	@GeneratedValue(generator = "CLIENTE_DNI", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "CLIENTE_DNI", sequenceName = "CLIENTE_DNI",allocationSize=1)
 	@Column(name="DNI_CL")
 	private Integer dniCl;
 	
