@@ -49,18 +49,24 @@ public class FunctionServiceImpl implements FunctionInt {
 
 	private List<Siniestro> convertirListSiniestroDtoToListSiniestro(List<SiniestroDto> siniestroDtoList) {
 		List<Siniestro> conversion = new ArrayList<>();
-		for (SiniestroDto siniestro : siniestroDtoList) {
-			conversion.add(convertirSiniestroToSiniestroDto(siniestro));
+		if(siniestroDtoList != null) {
+			for (SiniestroDto siniestro : siniestroDtoList) {
+				conversion.add(convertirSiniestroToSiniestroDto(siniestro));
+			}
 		}
+
 		return conversion;
 	}
 
 	private List<CompaniaSeguro> convertirListCompaniSeguroToListCompaniaSeguro(
 			List<CompaniaSeguroDto> companiaSeguroDtoList) {
 		List<CompaniaSeguro> conversion = new ArrayList<>();
-		for (CompaniaSeguroDto companiaSeguro : companiaSeguroDtoList) {
-			conversion.add(convertirCompaniaSeguroToDtoVersion(companiaSeguro));
+		if (companiaSeguroDtoList != null) {
+			for (CompaniaSeguroDto companiaSeguro : companiaSeguroDtoList) {
+				conversion.add(convertirCompaniaSeguroToDtoVersion(companiaSeguro));
+			}
 		}
+
 		return conversion;
 	}
 

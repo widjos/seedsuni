@@ -90,7 +90,7 @@ public class PeritoServicio implements PeritoServicioInt{
 		siniestro.setCausas(siniestroDto.getCausas());
 		siniestro.setFechaSiniestro(siniestroDto.getFechaSiniestro());
 		siniestro.setIdSiniestro(siniestroDto.getIdSiniestro());
-		siniestro.setPerito(convertirPeritoDtoToPerito(siniestroDto.getPerito()));
+		siniestro.setPerito(convertirPeritoToPeritoDto(siniestroDto.getPerito()));
 		siniestro.setSeguro(converitSeguroToSeguroDto(siniestroDto.getSeguro()));
 		siniestro.setIndenmizacion(siniestroDto.getIndenmizacion());
 		return  siniestro;
@@ -135,22 +135,6 @@ public class PeritoServicio implements PeritoServicioInt{
 		return seguro;
 	}
 	
-	private Perito convertirPeritoDtoToPerito(PeritoDto peritoDto) {
-		Perito perito = new Perito();
-		perito.setApellidoPerito1(peritoDto.getApellidoPerito1());
-		perito.setApellidoPerito2(peritoDto.getApellidoPerito2());
-		perito.setCiudad(peritoDto.getCiudad());
-		perito.setClaseVia(peritoDto.getClaseVia());
-		perito.setCodPostal(peritoDto.getCodPostal());
-		perito.setDniPerito(peritoDto.getDniPerito());
-		perito.setNombrePerito(peritoDto.getNombrePerito());
-		perito.setNombreVia(peritoDto.getNombreVia());
-		perito.setNumeroVia(peritoDto.getNumeroVia());
-		perito.setSiniestro(convertirListSiniestroDtoToListSiniestro(peritoDto.getSiniestro()));
-		perito.setTelefonoContacto(peritoDto.getTelefonoContacto());
-		perito.setTelefonoOficina(peritoDto.getTelefonoOficina());
-		return perito;
-	}
 	
 	
 	@Override
