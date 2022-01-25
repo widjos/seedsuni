@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uni.seed.practica2.dto.CompaniaSeguroDto;
+import com.library.dto.beans.CompaniaSeguroDto;
+
 import uni.seed.practica2.entity.CompaniaSeguro;
 
 @RestController

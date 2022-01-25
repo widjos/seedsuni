@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uni.seed.practica2.dto.SiniestroDto;
+import com.library.dto.beans.SiniestroDto;
+
 import uni.seed.practica2.entity.Siniestro;
 
 @RestController

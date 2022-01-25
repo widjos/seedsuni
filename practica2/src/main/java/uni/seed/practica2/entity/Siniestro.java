@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.library.dto.beans.PeritoDto;
+import com.library.dto.beans.SeguroDto;
+
 @Entity
 @Table(name="SINIESTRO")
 public class Siniestro  implements Serializable{

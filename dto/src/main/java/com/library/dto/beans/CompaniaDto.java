@@ -1,9 +1,8 @@
-package uni.seed.practica2.dto;
+package com.library.dto.beans;
 
 import java.io.Serializable;
 import java.util.List;
 
-import uni.seed.practica2.entity.CompaniaSeguro;
 
 public class CompaniaDto  implements Serializable{
 
@@ -17,7 +16,7 @@ public class CompaniaDto  implements Serializable{
 	private Integer telefonoContratacion;
 	private Integer telefonoSiniestros;
 	private String notas;
-	private List<CompaniaSeguro> companiaSeguro;
+	private List<CompaniaSeguroDto> companiaSeguro;
 	public String getNombreCompania() {
 		return nombreCompania;
 	}
@@ -66,10 +65,10 @@ public class CompaniaDto  implements Serializable{
 	public void setNotas(String notas) {
 		this.notas = notas;
 	}
-	public List<CompaniaSeguro> getCompaniaSeguro() {
+	public List<CompaniaSeguroDto> getCompaniaSeguro() {
 		return companiaSeguro;
 	}
-	public void setCompaniaSeguro(List<CompaniaSeguro> companiaSeguro) {
+	public void setCompaniaSeguro(List<CompaniaSeguroDto> companiaSeguro) {
 		this.companiaSeguro = companiaSeguro;
 	}
 	

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uni.seed.practica2.dto.ProcedimientoClienteSeguroDto;
+import com.library.dto.beans.ProcedimientoClienteSeguroDto;
 
 @RestController
 @RequestMapping("/procedure")

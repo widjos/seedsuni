@@ -1,10 +1,7 @@
-package uni.seed.practica2.dto;
+package com.library.dto.beans;
 
 import java.io.Serializable;
 import java.util.List;
-
-import uni.seed.practica2.entity.Compania;
-import uni.seed.practica2.entity.Siniestro;
 
 public class PeritoDto implements Serializable{
 
@@ -19,7 +16,7 @@ public class PeritoDto implements Serializable{
 	private Integer telefonoOficina;
 	private String claseVia;
 	private String nombreVia;
-	private Compania compania;
+	private CompaniaDto compania;
 	private Integer codPostal;
 	private String ciudad;
 	private String numeroVia;
@@ -29,7 +26,7 @@ public class PeritoDto implements Serializable{
 	public void setNumeroVia(String numeroVia) {
 		this.numeroVia = numeroVia;
 	}
-	private List<Siniestro> siniestro;
+	private List<SiniestroDto> siniestro;
 	public Integer getDniPerito() {
 		return dniPerito;
 	}
@@ -78,10 +75,10 @@ public class PeritoDto implements Serializable{
 	public void setNombreVia(String nombreVia) {
 		this.nombreVia = nombreVia;
 	}
-	public Compania getCompania() {
+	public CompaniaDto getCompania() {
 		return compania;
 	}
-	public void setCompania(Compania compania) {
+	public void setCompania(CompaniaDto compania) {
 		this.compania = compania;
 	}
 	public Integer getCodPostal() {
@@ -96,10 +93,10 @@ public class PeritoDto implements Serializable{
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	public List<Siniestro> getSiniestro() {
+	public List<SiniestroDto> getSiniestro() {
 		return siniestro;
 	}
-	public void setSiniestro(List<Siniestro> siniestro) {
+	public void setSiniestro(List<SiniestroDto> siniestro) {
 		this.siniestro = siniestro;
 	}
 	

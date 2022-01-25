@@ -1,10 +1,7 @@
-package uni.seed.practica2.dto;
+package com.library.dto.beans;
 
 import java.io.Serializable;
 import java.sql.Date;
-
-import uni.seed.practica2.entity.Perito;
-import uni.seed.practica2.entity.Seguro;
 
 public class SiniestroDto implements Serializable{
 
@@ -15,8 +12,8 @@ public class SiniestroDto implements Serializable{
 	private String causas;
 	private char aceptado;
 	private String indenmizacion;
-	private Seguro seguro;
-	private  Perito perito;
+	private SeguroDto seguro;
+	private  PeritoDto perito;
 	public Integer getIdSiniestro() {
 		return idSiniestro;
 	}
@@ -47,16 +44,16 @@ public class SiniestroDto implements Serializable{
 	public void setIndenmizacion(String indenmizacion) {
 		this.indenmizacion = indenmizacion;
 	}
-	public Seguro getSeguro() {
+	public SeguroDto getSeguro() {
 		return seguro;
 	}
-	public void setSeguro(Seguro seguro) {
+	public void setSeguro(SeguroDto seguro) {
 		this.seguro = seguro;
 	}
-	public Perito getPerito() {
+	public PeritoDto getPerito() {
 		return perito;
 	}
-	public void setPerito(Perito perito) {
+	public void setPerito(PeritoDto perito) {
 		this.perito = perito;
 	}
 	

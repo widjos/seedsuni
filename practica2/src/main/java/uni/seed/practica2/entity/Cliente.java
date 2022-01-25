@@ -13,6 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.library.dto.beans.SeguroDto;
+
 
 
 
@@ -58,6 +62,7 @@ public class Cliente  implements Serializable{
 	@Column(name="OBSERVACIONES")
 	private String observaciones;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "dniCl")
 	private List<Seguro> seguro;
 
