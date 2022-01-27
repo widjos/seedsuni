@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.dto.beans.CompaniaDto;
 
@@ -34,7 +32,7 @@ public class CompaniaServicio implements CompaniaServicioInt {
 	}
 	
 	@Override
-	public Compania guardar(@RequestBody CompaniaDto companiaDto) {
+	public Compania guardar(CompaniaDto companiaDto) {
 		Compania compania = conversionDto.convertirCompaniaToCompaniaDto(companiaDto);
 		return companiaRepository.save(compania);
 	}
@@ -42,7 +40,7 @@ public class CompaniaServicio implements CompaniaServicioInt {
 	
 
 	@Override
-	public void eliminar(@PathVariable String nombreCompania) {
+	public void eliminar(String nombreCompania) {
 		Optional<Compania> compania = companiaRepository.findById(nombreCompania);
 		if(compania.isPresent()) {
 			companiaRepository.delete(compania.get());
@@ -50,13 +48,13 @@ public class CompaniaServicio implements CompaniaServicioInt {
 	}
 	
 	@Override
-	public List<Compania> buscarPorId(@PathVariable String nombreVia){
+	public List<Compania> buscarPorId(String nombreVia){
 		return companiaRepository.findByNombreViaOrderByNombreCompaniaDesc(nombreVia);
 	}
 	
 	
 	@Override
-	public List<Compania> buscarContieneNombre(@PathVariable String referencia){
+	public List<Compania> buscarContieneNombre(String referencia){
 		return companiaRepository.queryByNombreCompaniaContaining(referencia);
 	}
 }

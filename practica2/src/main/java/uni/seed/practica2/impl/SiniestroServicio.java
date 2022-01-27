@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.dto.beans.SiniestroDto;
 
@@ -40,7 +38,7 @@ public class SiniestroServicio implements SiniestroServicioInt{
 	}
 	
 	@Override
-	public Siniestro guardar(@RequestBody SiniestroDto  siniestroDto, @PathVariable int numeroPoliza , @PathVariable int dniPerito) {
+	public Siniestro guardar(SiniestroDto  siniestroDto, int numeroPoliza , int dniPerito) {
 		Siniestro siniestro = conversionDto.convertirSiniestroToSiniestroDto(siniestroDto);
 		List<Perito> peritoList = peritoRepository.findAll();
 		List<Seguro> seguroList = seguroRepository.findAll();
@@ -66,7 +64,7 @@ public class SiniestroServicio implements SiniestroServicioInt{
 	}
 	
 	@Override
-	public Siniestro guardarSeguroPerito(@RequestBody SiniestroDto siniestroDto) {
+	public Siniestro guardarSeguroPerito( SiniestroDto siniestroDto) {
 		Siniestro siniestro = conversionDto.convertirSiniestroToSiniestroDto(siniestroDto);
 		Seguro seguro = siniestro.getSeguro();
 		siniestro.setSeguro(null);
@@ -84,7 +82,7 @@ public class SiniestroServicio implements SiniestroServicioInt{
 
 	
 	@Override
-	public void eliminar(@PathVariable int idSiniestro) {
+	public void eliminar(int idSiniestro) {
 		Optional<Siniestro> siniestro = siniestroRepository.findById(idSiniestro);
 		if(siniestro.isPresent()) {
 			siniestroRepository.delete(siniestro.get());
@@ -92,12 +90,12 @@ public class SiniestroServicio implements SiniestroServicioInt{
 	}
 	
 	@Override
-	public List<Siniestro> buscarPorDniPerito(@PathVariable int dniPerito){
+	public List<Siniestro> buscarPorDniPerito( int dniPerito){
 		return siniestroRepository.findByPeritoDniPerito(dniPerito);
 	}
 	
 	@Override
-	public List<Siniestro> buscarAceptados(@PathVariable char aceptado){
+	public List<Siniestro> buscarAceptados( char aceptado){
 		return siniestroRepository.queryByAceptadoLike(aceptado);
 	}
 }

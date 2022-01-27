@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import com.library.dto.beans.PeritoDto;
@@ -39,14 +37,14 @@ public class PeritoServicio implements PeritoServicioInt{
 	}
 	
 	@Override
-	public Perito guardar(@RequestBody PeritoDto peritoDto){
+	public Perito guardar(PeritoDto peritoDto){
 		Perito perito =  conversionDto.convertirPeritoDtoToPerito(peritoDto);
 		return peritoRepository.save(perito);
 	}
 	
 	
 	@Override
-	public void eliminar(@PathVariable Integer dniPerito){
+	public void eliminar(Integer dniPerito){
 		Optional<Perito> perito = peritoRepository.findById(dniPerito);
 		if(perito.isPresent()) {
 			peritoRepository.delete(perito.get());
@@ -54,12 +52,12 @@ public class PeritoServicio implements PeritoServicioInt{
 	}
 	
 	@Override
-	public List<Perito> buscarCiudadYNumeroVia(@PathVariable String  ciudad, @PathVariable String numeroVia){
+	public List<Perito> buscarCiudadYNumeroVia(String  ciudad, String numeroVia){
 		return peritoRepository.findByCiudadAndNumeroVia(ciudad, numeroVia);
 	}
 	
 	@Override
-	public List<Siniestro> buscarSiniestroPerito(@PathVariable int dniPerito){
+	public List<Siniestro> buscarSiniestroPerito(int dniPerito){
 		List<Siniestro> siniestro = siniestroRepository.findAll();
 		for(Siniestro sin : siniestro) {
 			if(sin.getPerito().getDniPerito() != dniPerito) {

@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.library.dto.beans.CompaniaSeguroDto;
 
 import uni.seed.practica2.common.ConversionDto;
@@ -43,7 +41,7 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	}
 	
 	@Override
-	public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto companiaSeguroDto, @PathVariable String nombreCompania, @PathVariable int numeroPoliza) {
+	public CompaniaSeguro guardar(CompaniaSeguroDto companiaSeguroDto, String nombreCompania,int numeroPoliza) {
 		CompaniaSeguro companiaSeguro = conversionDto.convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
 		List<Compania> compania = companiaRepository.findAll();
 		List<Seguro> seguro = seguroRepository.findAll();
@@ -66,7 +64,7 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	}
 	
 	@Override
-	public CompaniaSeguro guardarCompaniaYSeguro(@RequestBody CompaniaSeguroDto companiaSeguroDto) {
+	public CompaniaSeguro guardarCompaniaYSeguro(CompaniaSeguroDto companiaSeguroDto) {
 		CompaniaSeguro companiaSeguro = conversionDto.convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
 		Seguro seguro = companiaSeguro.getSeguro();
 		companiaSeguro.setSeguro(null);
@@ -83,7 +81,7 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 
 	
 	@Override
-	public void eliminar(@PathVariable Integer id) {
+	public void eliminar(Integer id) {
 		Optional<CompaniaSeguro> companiaSeguro = companiaSeguroRepository.findById(id);
 		if(companiaSeguro.isPresent()) {
 			companiaSeguroRepository.delete(companiaSeguro.get());
@@ -91,12 +89,12 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	}
 	
 	@Override
-	public List<CompaniaSeguro> buscarPorId(@PathVariable int id){
+	public List<CompaniaSeguro> buscarPorId(int id){
 		return companiaSeguroRepository.findById(id);
 	}
 
 	@Override
-	public int eliminarCompaniaSeguro(@PathVariable Integer id) {
+	public int eliminarCompaniaSeguro(Integer id) {
 		return  catalogoServicio.eliminarCompaniaSeguro(id);
 	}
 

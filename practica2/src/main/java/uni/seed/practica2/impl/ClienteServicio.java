@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.dto.beans.ClienteDto;
 
@@ -41,7 +39,7 @@ public class ClienteServicio implements ClienteServicioInt {
 	}
 	
 	@Override
-	public Cliente guardar(@RequestBody ClienteDto clienteDto) {
+	public Cliente guardar(ClienteDto clienteDto) {
 		Cliente cliente = conversionDto.convertirClienteToClienteDto(clienteDto);
 		return clienteRepository.save(cliente);
 	}
@@ -49,7 +47,7 @@ public class ClienteServicio implements ClienteServicioInt {
 
 
 	@Override
-	public Cliente guardarSeguro(@RequestBody ClienteDto clienteDto) {
+	public Cliente guardarSeguro(ClienteDto clienteDto) {
 		Cliente cliente = conversionDto.convertirClienteToClienteDto(clienteDto);
 		List<Seguro> seguro = cliente.getSeguro();
 		cliente.setSeguro(null);
@@ -64,7 +62,7 @@ public class ClienteServicio implements ClienteServicioInt {
 	}
 	
 	@Override
-	public void eliminar(@PathVariable("dniCl") int dniCl) {
+	public void eliminar( int dniCl) {
 		Optional<Cliente> cliente = clienteRepository.findById(dniCl);
 		if(cliente.isPresent()) {
 			clienteRepository.delete(cliente.get());
@@ -72,17 +70,17 @@ public class ClienteServicio implements ClienteServicioInt {
 	}
 	
 	@Override
-	public List<Cliente> buscarNombreYApellido1(@PathVariable String nombreCl, @PathVariable String apellido1){
+	public List<Cliente> buscarNombreYApellido1( String nombreCl, String apellido1){
 		return clienteRepository.findByNombreClAndApellido1(nombreCl, apellido1);
 	}
 	
 	@Override
-	public List<Cliente> buscarApellido2OCiudad(@PathVariable String apellido2, @PathVariable String  ciudad){
+	public List<Cliente> buscarApellido2OCiudad( String apellido2, String  ciudad){
 		return clienteRepository.findByApellido2OrCiudad(apellido2, ciudad);
 	}
 
 	@Override
-	public Cliente buscarNombreLike(@PathVariable String nombreIniciales) {
+	public Cliente buscarNombreLike(String nombreIniciales) {
 		return clienteRepository.findByNombreClStartingWith(nombreIniciales);
 	}
 
