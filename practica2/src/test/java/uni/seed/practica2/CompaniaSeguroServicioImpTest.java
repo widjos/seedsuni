@@ -75,6 +75,7 @@ class CompaniaSeguroServicioImpTest {
 		
 		
 		assertNotNull(temporalCompaniaSeguro, "Se creo con exito  su nueva compania y seguro");
+		LOG.info("Hola");
 		
 		
 	}

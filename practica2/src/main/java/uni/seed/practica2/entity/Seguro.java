@@ -13,8 +13,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
 @Entity
 @Table(name="SEGURO")
+@Data
 public class Seguro  implements Serializable{
 
 	private static final long serialVersionUID = -6724631396193550050L;
@@ -51,77 +54,5 @@ public class Seguro  implements Serializable{
 	private List<Siniestro> siniestro;
 	
 	
-	
-	public List<Siniestro> getSiniestro() {
-		return siniestro;
-	}
 
-	public void setSiniestro(List<Siniestro> siniestro) {
-		this.siniestro = siniestro;
-	}
-
-	public List<CompaniaSeguro> getCompaniaSeguro() {
-		return companiaSeguro;
-	}
-
-	public void setCompaniaSeguro(List<CompaniaSeguro> companiaSeguro) {
-		this.companiaSeguro = companiaSeguro;
-	}
-
-	public Integer getNumeroPoliza() {
-		return numeroPoliza;
-	}
-
-	public void setNumeroPoliza(Integer numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
-	}
-
-	public String getRamo() {
-		return ramo;
-	}
-
-	public void setRamo(String ramo) {
-		this.ramo = ramo;
-	}
-
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	public Date getFechaVencimiento() {
-		return fechaVencimiento;
-	}
-
-	public void setFechaVencimiento(Date fechaVencimiento) {
-		this.fechaVencimiento = fechaVencimiento;
-	}
-
-	public String getCondicionesParticulares() {
-		return condicionesParticulares;
-	}
-
-	public void setCondicionesParticulares(String condicionesParticulares) {
-		this.condicionesParticulares = condicionesParticulares;
-	}
-
-	public String getObservaciones() {
-		return observaciones;
-	}
-
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
-
-	public Integer getDniCl() {
-		return dniCl;
-	}
-
-	public void setDniCl(Integer dniCl) {
-		this.dniCl = dniCl;
-	}
-	
 }

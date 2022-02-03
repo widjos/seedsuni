@@ -9,9 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 
 @Entity
 @Table(name="COMPANIA_SEGURO")
+@Data
 public class CompaniaSeguro implements Serializable{
 
 	private static final long serialVersionUID = -5151080018907566487L;
@@ -30,32 +33,6 @@ public class CompaniaSeguro implements Serializable{
 	private Compania compania;
 	
 
-	public Seguro getSeguro() {
-		return seguro;
-	}
 
-	public void setSeguro(Seguro seguro) {
-		this.seguro = seguro;
-	}
-
-	public Compania getCompania() {
-		return compania;
-	}
-
-	public void setCompania(Compania compania) {
-		this.compania = compania;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-	
-	
 		
 }

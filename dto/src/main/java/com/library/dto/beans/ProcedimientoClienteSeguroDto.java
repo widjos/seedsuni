@@ -3,6 +3,9 @@ package com.library.dto.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class ProcedimientoClienteSeguroDto  implements Serializable{
 
 	private static final long serialVersionUID = 6510484911370825312L;
@@ -11,22 +14,6 @@ public class ProcedimientoClienteSeguroDto  implements Serializable{
 	private String outNombreCliente;
 	private Date outFechaInicio;
 
-	
-	public String getOutNombreCliente() {
-		return outNombreCliente;
-	}
-	public void setOutNombreCliente(String outNombreCliente) {
-		this.outNombreCliente = outNombreCliente;
-	}
-
-	public Date getOutFechaInicio() {
-		return outFechaInicio;
-	}
-	public void setOutfechaInicio(Date outFechaInicio) {
-		this.outFechaInicio = outFechaInicio;
-	}
-	
-	
 	
 
 }

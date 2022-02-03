@@ -53,7 +53,7 @@ class ClienteServicioImpTest {
 		Cliente clienteCreado = clienteServicio.guardar(nuevoClienteDto);
 		
 		assertNotNull(clienteCreado, "Se creo un cliente");
-		clienteServicio.eliminar(clienteCreado.getDniCl());
+		clienteServicio.eliminar(clienteCreado.getDniCl()); 
 		
 		LOG.info("SE creo y elimino un nuevo cliente en la base de datos.");
 		

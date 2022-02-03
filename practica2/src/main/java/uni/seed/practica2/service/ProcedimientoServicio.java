@@ -59,7 +59,7 @@ public class ProcedimientoServicio {
 		
 		ProcedimientoClienteSeguroDto dto = new ProcedimientoClienteSeguroDto();
 		
-		dto.setOutfechaInicio( (Date) out.get("out_fechaInicio"));
+		dto.setOutFechaInicio( (Date) out.get("out_fechaInicio"));
 		dto.setOutNombreCliente(out.get("out_nombreCliente").toString());
 		return dto;
 	}

@@ -10,9 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 
 @Entity
 @Table(name="SINIESTRO")
+@Data
 public class Siniestro  implements Serializable{
 
 	private static final long serialVersionUID = 4400187197284680580L;
@@ -40,62 +43,6 @@ public class Siniestro  implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="dniPerito")
 	private  Perito perito;
-
-	public Integer getIdSiniestro() {
-		return idSiniestro;
-	}
-
-	public void setIdSiniestro(Integer idSiniestro) {
-		this.idSiniestro = idSiniestro;
-	}
-
-	public Date getFechaSiniestro() {
-		return fechaSiniestro;
-	}
-
-	public void setFechaSiniestro(Date fechaSiniestro) {
-		this.fechaSiniestro = fechaSiniestro;
-	}
-
-	public String getCausas() {
-		return causas;
-	}
-
-	public void setCausas(String causas) {
-		this.causas = causas;
-	}
-
-	public char getAceptado() {
-		return aceptado;
-	}
-
-	public void setAceptado(char aceptado) {
-		this.aceptado = aceptado;
-	}
-
-	public String getIndenmizacion() {
-		return indenmizacion;
-	}
-
-	public void setIndenmizacion(String indenmizacion) {
-		this.indenmizacion = indenmizacion;
-	}
-
-	public Seguro getSeguro() {
-		return seguro;
-	}
-
-	public void setSeguro(Seguro seguro) {
-		this.seguro = seguro;
-	}
-
-	public Perito getPerito() {
-		return perito;
-	}
-
-	public void setPerito(Perito perito) {
-		this.perito = perito;
-	}
 
 
 	
