@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.library.dto.beans.CompaniaSeguroDto;
 
 import uni.seed.practica2.common.ConversionDto;
+import uni.seed.practica2.dto.CompaniaSeguroDto;
 import uni.seed.practica2.entity.Compania;
 import uni.seed.practica2.entity.CompaniaSeguro;
 import uni.seed.practica2.entity.Seguro;

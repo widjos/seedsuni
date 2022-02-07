@@ -5,10 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-import com.library.dto.beans.PeritoDto;
-
 import uni.seed.practica2.common.ConversionDto;
+import uni.seed.practica2.dto.PeritoDto;
 import uni.seed.practica2.entity.Perito;
 import uni.seed.practica2.entity.Siniestro;
 import uni.seed.practica2.repository.PeritoRepository;

@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.library.dto.beans.SeguroDto;
 import uni.seed.practica2.common.ConversionDto;
+import uni.seed.practica2.dto.SeguroDto;
 import uni.seed.practica2.entity.Seguro;
 import uni.seed.practica2.repository.SeguroRepository;
 import uni.seed.practica2.ws.SeguroServicioInt;

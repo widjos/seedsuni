@@ -16,7 +16,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 
-import com.library.dto.beans.ProcedimientoClienteSeguroDto;
+import uni.seed.practica2.dto.ProcedimientoClienteSeguroDto;
 
 @Service
 public class ProcedimientoServicio {

@@ -4,8 +4,7 @@ package uni.seed.practica2.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.library.dto.beans.ProcedimientoClienteSeguroDto;
-
+import uni.seed.practica2.dto.ProcedimientoClienteSeguroDto;
 import uni.seed.practica2.service.ProcedimientoServicio;
 import uni.seed.practica2.ws.ProcedimientoServicioInt;
 

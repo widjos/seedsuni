@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.library.dto.beans.CompaniaDto;
-import com.library.dto.beans.CompaniaSeguroDto;
-import com.library.dto.beans.SeguroDto;
-
+import uni.seed.practica2.dto.CompaniaDto;
+import uni.seed.practica2.dto.CompaniaSeguroDto;
+import uni.seed.practica2.dto.SeguroDto;
 import uni.seed.practica2.entity.CompaniaSeguro;
 import uni.seed.practica2.impl.CompaniaSeguroServicio;
 import uni.seed.practica2.impl.CompaniaServicio;

@@ -1,4 +1,4 @@
-package com.library.dto.beans;
+package uni.seed.practica2.dto;
 
 import java.io.Serializable;
 import java.util.Date;

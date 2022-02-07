@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.library.dto.beans.SeguroDto;
-
+import uni.seed.practica2.dto.SeguroDto;
 import uni.seed.practica2.impl.FunctionServiceImpl;
 import uni.seed.practica2.impl.SeguroServicio;
 

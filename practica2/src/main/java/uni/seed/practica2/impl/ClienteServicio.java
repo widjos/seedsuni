@@ -7,14 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.library.dto.beans.ClienteDto;
-
-
 import uni.seed.practica2.repository.ClienteRepository;
 import uni.seed.practica2.repository.SeguroRepository;
 import uni.seed.practica2.service.CatalogoServicio;
 import uni.seed.practica2.ws.ClienteServicioInt;
 import uni.seed.practica2.common.ConversionDto;
+import uni.seed.practica2.dto.ClienteDto;
 import uni.seed.practica2.entity.Cliente;
 import uni.seed.practica2.entity.Seguro;
 
