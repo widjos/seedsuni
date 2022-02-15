@@ -89,7 +89,7 @@ public class ClienteServicio implements ClienteServicioInt {
 
 	@Override
 	public int updateClienteCodigoPostal(int codPostal, int dniCl) {
-		return catalogoServicio.updateClienteCodigoPostal(codPostal, dniCl);
+		return catalogoServicio.updateClienteCodigoPostal(dniCl,codPostal);
 	}
 	
 }

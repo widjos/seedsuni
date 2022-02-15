@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
-import uni.seed.practica2.entity.Perito;
+import uni.seed.practica2.dto.PeritoDto;
 
 @Service
 public class CatalogoServicio {
@@ -25,7 +25,7 @@ public class CatalogoServicio {
 		}
 		
 		
-		public int  nuevoPerito(Perito nuevoPerito) {			
+		public int  nuevoPerito(PeritoDto nuevoPerito) {			
 			String query = "insert into perito values("
 					+ ":dniPerito , :nombrePerito , :apellidoPerito1,"
 					+ ":apellidoPerito2, :telefonoContacto , :telefonoOficina,"

@@ -67,7 +67,7 @@ public class PeritoServicio implements PeritoServicioInt{
 
 	@Override
 	public int nuevoPerito(PeritoDto peritoDto) {
-		return 1;
+		return catalogoServicio.nuevoPerito(peritoDto);
 		
 	}
 
