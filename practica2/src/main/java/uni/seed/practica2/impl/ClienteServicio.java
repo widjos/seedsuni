@@ -91,5 +91,10 @@ public class ClienteServicio implements ClienteServicioInt {
 	public int updateClienteCodigoPostal(int codPostal, int dniCl) {
 		return catalogoServicio.updateClienteCodigoPostal(dniCl,codPostal);
 	}
+
+	@Override
+	public List<Cliente> buscarApellido(String apellido) {
+		return clienteRepository.findByApellido1OrApellido2(apellido, apellido);
+	}
 	
 }

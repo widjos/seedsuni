@@ -47,4 +47,7 @@ public interface ClienteServicioInt {
 	
 	@PostMapping(path="/update/{dniCl}/codigo/{codPostal}")
 	public int updateClienteCodigoPostal(@PathVariable int dniCl, @PathVariable int codPostal);
+	
+	@GetMapping(path = "/buscar/apellido/{apellido}")
+	public List<Cliente> buscarApellido(@PathVariable String apellido);
 }
