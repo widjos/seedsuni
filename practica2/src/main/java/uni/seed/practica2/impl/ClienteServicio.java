@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.repository.ClienteRepository;
@@ -95,6 +98,12 @@ public class ClienteServicio implements ClienteServicioInt {
 	@Override
 	public List<Cliente> buscarApellido(String apellido) {
 		return clienteRepository.findByApellido1OrApellido2(apellido, apellido);
+	}
+
+	@Override
+	public Page<Cliente> buscar(int pagina, int cantidad) {
+		Pageable pageable = PageRequest.of(pagina, cantidad);
+		return clienteRepository.findAll(pageable);
 	}
 	
 }

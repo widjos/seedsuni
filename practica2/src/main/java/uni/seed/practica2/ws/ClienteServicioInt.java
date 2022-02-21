@@ -3,6 +3,7 @@ package uni.seed.practica2.ws;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,4 +51,7 @@ public interface ClienteServicioInt {
 	
 	@GetMapping(path = "/buscar/apellido/{apellido}")
 	public List<Cliente> buscarApellido(@PathVariable String apellido);
+	
+	@GetMapping(path = "/buscar/paginacion/{pagina}/{cantidad}")
+	public Page<Cliente> buscar(@PathVariable int pagina, @PathVariable int cantidad);
 }
