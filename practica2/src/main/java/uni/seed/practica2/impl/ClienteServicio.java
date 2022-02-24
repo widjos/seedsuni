@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.repository.ClienteRepository;
@@ -40,26 +42,37 @@ public class ClienteServicio implements ClienteServicioInt {
 	}
 	
 	@Override
-	public Cliente guardar(ClienteDto clienteDto) {
-		Cliente cliente = conversionDto.convertirClienteToClienteDto(clienteDto);
-		return clienteRepository.save(cliente);
+	public ResponseEntity<Cliente>  guardar(ClienteDto clienteDto) {
+		try {
+			Cliente cliente = conversionDto.convertirClienteToClienteDto(clienteDto);
+			return new ResponseEntity<>(clienteRepository.save(cliente),null, HttpStatus.ACCEPTED);
+			
+		}catch(Exception exp) {
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 
 
 	@Override
-	public Cliente guardarSeguro(ClienteDto clienteDto) {
-		Cliente cliente = conversionDto.convertirClienteToClienteDto(clienteDto);
-		List<Seguro> seguro = cliente.getSeguro();
-		cliente.setSeguro(null);
-		clienteRepository.save(cliente);
-		for(Seguro seg : seguro ) 
-			seg.setDniCl(cliente.getDniCl());  
-		
-		
-		seguroRepository.saveAll(seguro);
-		cliente.setSeguro(seguro);
-		return cliente;
+	public ResponseEntity<Cliente> guardarSeguro(ClienteDto clienteDto) {
+		try {
+			Cliente cliente = conversionDto.convertirClienteToClienteDto(clienteDto);
+			List<Seguro> seguro = cliente.getSeguro();
+			cliente.setSeguro(null);
+			clienteRepository.save(cliente);
+			for(Seguro seg : seguro ) 
+				seg.setDniCl(cliente.getDniCl());  
+			
+			
+			seguroRepository.saveAll(seguro);
+			cliente.setSeguro(seguro);
+			return new ResponseEntity<>(cliente, null, HttpStatus.OK);
+		}catch(Exception exp) {
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 	@Override
@@ -91,8 +104,12 @@ public class ClienteServicio implements ClienteServicioInt {
 	}
 
 	@Override
-	public int updateClienteCodigoPostal(int codPostal, int dniCl) {
-		return catalogoServicio.updateClienteCodigoPostal(dniCl,codPostal);
+	public ResponseEntity<Integer> updateClienteCodigoPostal(int codPostal, int dniCl) {
+		try {
+			return new ResponseEntity<>( catalogoServicio.updateClienteCodigoPostal(dniCl,codPostal), null, HttpStatus.OK);
+		}catch(Exception exp) {
+			return new ResponseEntity<>( null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@Override

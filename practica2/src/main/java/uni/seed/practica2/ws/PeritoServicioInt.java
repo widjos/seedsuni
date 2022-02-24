@@ -2,6 +2,7 @@ package uni.seed.practica2.ws;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public interface PeritoServicioInt {
 	public List<Perito> buscar();
 	
 	@PostMapping(path="/guardar")
-	public Perito guardar(@RequestBody PeritoDto peritoDto);
+	public ResponseEntity<Perito> guardar(@RequestBody PeritoDto peritoDto);
 	
 	@DeleteMapping(path="/eliminar/{dniPerito}")
 	public void eliminar(@PathVariable Integer dniPerito);
@@ -38,7 +39,7 @@ public interface PeritoServicioInt {
 	public List<Siniestro> buscarSiniestroPerito(@PathVariable int dniPerito);
 	
 	@PostMapping(path="/nuevo")
-	public int  nuevoPerito(@RequestBody PeritoDto peritoDto);
+	public ResponseEntity<Integer>  nuevoPerito(@RequestBody PeritoDto peritoDto);
 	
 
 

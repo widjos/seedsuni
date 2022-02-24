@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import uni.seed.practica2.dto.SeguroDto;
 import uni.seed.practica2.entity.Seguro;
@@ -39,8 +40,8 @@ class SeguroServicioImpTest {
 		temporalSeguro.setObservaciones("nada nada");
 		temporalSeguro.setDniCl(2);
 		
-		Seguro result =  seguroServicio.guardar(temporalSeguro);
-		assertNotNull(result, "Se guardo unnuevo seguro");
+		ResponseEntity<Seguro> result =  seguroServicio.guardar(temporalSeguro);
+		assertNotNull(result.getBody(), "Se guardo unnuevo seguro");
 		
 		seguroServicio.eliminar(temporalSeguro.getNumeroPoliza());
 		

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.common.ConversionDto;
@@ -31,9 +33,15 @@ public class CompaniaServicio implements CompaniaServicioInt {
 	}
 	
 	@Override
-	public Compania guardar(CompaniaDto companiaDto) {
-		Compania compania = conversionDto.convertirCompaniaToCompaniaDto(companiaDto);
-		return companiaRepository.save(compania);
+	public ResponseEntity<Compania> guardar(CompaniaDto companiaDto) {
+		try {
+			Compania compania = conversionDto.convertirCompaniaToCompaniaDto(companiaDto);
+			return new ResponseEntity<>(companiaRepository.save(compania),null, HttpStatus.OK);
+		}catch(Exception exp) {
+			
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 	

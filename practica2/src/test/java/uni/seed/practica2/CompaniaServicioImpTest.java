@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import uni.seed.practica2.dto.CompaniaDto;
 import uni.seed.practica2.entity.Compania;
@@ -43,10 +44,10 @@ class CompaniaServicioImpTest {
 		temporalCompania.setTelefonoSiniestros(8885556);
 		temporalCompania.setNotas("dddd");
 		
-		Compania resultCompania = companiaServicio.guardar(temporalCompania);
+		ResponseEntity<Compania> resultCompania = companiaServicio.guardar(temporalCompania);
 		
 		
-		assertNotNull(resultCompania, "La nueva compania fue creeada");
+		assertNotNull(resultCompania.getBody(), "La nueva compania fue creeada");
 		
 		companiaServicio.eliminar(temporalCompania.getNombreCompania());
 			

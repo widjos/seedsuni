@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.common.ConversionDto;
@@ -29,9 +31,14 @@ public class SeguroServicio implements SeguroServicioInt {
 	}
 	
 	@Override
-	public Seguro guardar(SeguroDto seguroDto) {
-		Seguro seguro = conversionDto.converitSeguroToSeguroDto(seguroDto);
-		return seguroRepository.save(seguro);
+	public ResponseEntity<Seguro> guardar(SeguroDto seguroDto) {
+		
+		try {
+			Seguro seguro = conversionDto.converitSeguroToSeguroDto(seguroDto);
+			return  new ResponseEntity<>(seguroRepository.save(seguro),null,HttpStatus.OK);
+		}catch(Exception exp) {
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	

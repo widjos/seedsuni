@@ -31,7 +31,7 @@ class FunctionServiceImpTest {
 		temporalSeguro.setObservaciones("nada nada");
 		temporalSeguro.setDniCl(2);
 		
-		assertNotEquals(0, functionServiceImpl.nuevoSeguro(temporalSeguro), "Se creo el nuevo seguro");
+		assertNotEquals(0, functionServiceImpl.nuevoSeguro(temporalSeguro).getBody(), "Se creo el nuevo seguro");
 		
 		seguroService.eliminar(temporalSeguro.getNumeroPoliza());
 	

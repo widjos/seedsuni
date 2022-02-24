@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import uni.seed.practica2.dto.ClienteDto;
 import uni.seed.practica2.entity.Cliente;
@@ -49,11 +50,10 @@ class ClienteServicioImpTest {
 		nuevoClienteDto.setTelefono(47885);
 		nuevoClienteDto.setObservaciones("ASDASDA");
 	
-		Cliente clienteCreado = clienteServicio.guardar(nuevoClienteDto);
+		ResponseEntity<Cliente> nuevo =  clienteServicio.guardar(nuevoClienteDto);
 		
-		assertNotNull(clienteCreado, "Se creo un cliente");
-		clienteServicio.eliminar(clienteCreado.getDniCl()); 
-		
+		assertNotNull(nuevo.getBody(), "Se creo un cliente");
+		clienteServicio.eliminar(nuevo.getBody().getDniCl()); 
 		LOG.info("SE creo y elimino un nuevo cliente en la base de datos.");
 		
 		
@@ -96,8 +96,8 @@ class ClienteServicioImpTest {
 	
 	@Test
 	void updateClienteCodigoPostal() {
-		int result = clienteServicio.updateClienteCodigoPostal(1,88888);
+		ResponseEntity<Integer> result  = clienteServicio.updateClienteCodigoPostal(1,88888);
 		
-		assertEquals(0,result,"Se cambio el codigopostal del cliente");
+		assertEquals(0,result.getBody(),"Se cambio el codigopostal del cliente");
 	}
 }

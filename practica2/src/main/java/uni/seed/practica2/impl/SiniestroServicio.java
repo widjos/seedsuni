@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.common.ConversionDto;
@@ -37,43 +39,50 @@ public class SiniestroServicio implements SiniestroServicioInt{
 	}
 	
 	@Override
-	public Siniestro guardar(SiniestroDto  siniestroDto, int numeroPoliza , int dniPerito) {
-		Siniestro siniestro = conversionDto.convertirSiniestroToSiniestroDto(siniestroDto);
-		List<Perito> peritoList = peritoRepository.findAll();
-		List<Seguro> seguroList = seguroRepository.findAll();
+	public ResponseEntity<Siniestro> guardar(SiniestroDto  siniestroDto, int numeroPoliza , int dniPerito) {
 		
-		for(Perito  per : peritoList) {
-			if(per.getDniPerito() == dniPerito) {
-				siniestro.setPerito(per);
+		try {
+			Siniestro siniestro = conversionDto.convertirSiniestroToSiniestroDto(siniestroDto);
+			List<Perito> peritoList = peritoRepository.findAll();
+			List<Seguro> seguroList = seguroRepository.findAll();
+			
+			for(Perito  per : peritoList) {
+				if(per.getDniPerito() == dniPerito) {
+					siniestro.setPerito(per);
+				}
 			}
-		}
-		
-		for(Seguro seg : seguroList) {
-			if(seg.getNumeroPoliza() == numeroPoliza) {
-				siniestro.setSeguro(seg);
+			
+			for(Seguro seg : seguroList) {
+				if(seg.getNumeroPoliza() == numeroPoliza) {
+					siniestro.setSeguro(seg);
+				}
 			}
+			
+				return new ResponseEntity<>(siniestroRepository.save(siniestro),null,HttpStatus.OK);
+		}catch(Exception exp) {
+				return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		if(siniestro.getPerito() != null && siniestro.getSeguro() != null) {
-			return siniestroRepository.save(siniestro);
-		}else {
-			return null;
-		}
-		
+
+			
 	}
 	
 	@Override
-	public Siniestro guardarSeguroPerito( SiniestroDto siniestroDto) {
-		Siniestro siniestro = conversionDto.convertirSiniestroToSiniestroDto(siniestroDto);
-		Seguro seguro = siniestro.getSeguro();
-		siniestro.setSeguro(null);
-		seguroRepository.save(seguro);
-		Perito perito = siniestro.getPerito();
-		siniestro.setPerito(null);
-		seguroRepository.save(seguro);
-		siniestro.setSeguro(seguro);
-		siniestro.setPerito(perito);
-		return siniestroRepository.save(siniestro);
+	public ResponseEntity<Siniestro> guardarSeguroPerito( SiniestroDto siniestroDto) {
+		try {
+			Siniestro siniestro = conversionDto.convertirSiniestroToSiniestroDto(siniestroDto);
+			Seguro seguro = siniestro.getSeguro();
+			siniestro.setSeguro(null);
+			seguroRepository.save(seguro);
+			Perito perito = siniestro.getPerito();
+			siniestro.setPerito(null);
+			seguroRepository.save(seguro);
+			siniestro.setSeguro(seguro);
+			siniestro.setPerito(perito);
+			return  new ResponseEntity<>(siniestroRepository.save(siniestro),null,HttpStatus.OK);
+		}catch(Exception exp) {
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		
 	}
 	

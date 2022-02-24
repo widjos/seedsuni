@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import uni.seed.practica2.dto.CompaniaDto;
 import uni.seed.practica2.dto.CompaniaSeguroDto;
@@ -60,7 +61,7 @@ class CompaniaSeguroServicioImpTest {
 		dtoCompania.setCompania(temporalCompania);
 		dtoCompania.setSeguro(temporalSeguro);
 		
-		CompaniaSeguro temporalCompaniaSeguro = companiaSeguroServicio.guardarCompaniaYSeguro(dtoCompania);
+		ResponseEntity<CompaniaSeguro> temporalCompaniaSeguro = companiaSeguroServicio.guardarCompaniaYSeguro(dtoCompania);
 		
 
 		LOG.info("SE crearon con exito su nueva entradad ahora toca eliminar todo de nuevo");

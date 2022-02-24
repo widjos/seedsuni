@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import uni.seed.practica2.dto.PeritoDto;
 import uni.seed.practica2.entity.Perito;
@@ -45,9 +46,9 @@ class PeritoServicioImpTest {
 		peritoDto.setCodPostal(5555);
 		peritoDto.setCiudad("asdsada");
 			
-		Perito temporalPerito = peritoServicio.guardar(peritoDto);
+		ResponseEntity<Perito> temporalPerito = peritoServicio.guardar(peritoDto);
 		
-		assertNotNull(temporalPerito,"Se ccreo un nuevo perito");
+		assertNotNull(temporalPerito.getBody(),"Se ccreo un nuevo perito");
 		
 		peritoServicio.eliminar(peritoDto.getDniPerito());
 		

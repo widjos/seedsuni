@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,10 @@ public interface ClienteServicioInt {
 	public List<Cliente> buscar();
 	
 	@PostMapping(path="/guardar")
-	public Cliente guardar(@RequestBody ClienteDto clienteDto);
+	public ResponseEntity<Cliente>  guardar(@RequestBody ClienteDto clienteDto);
 	
 	@PostMapping(path="/guardar/seguro")
-	public Cliente guardarSeguro(@RequestBody ClienteDto clienteDto);
+	public ResponseEntity<Cliente> guardarSeguro(@RequestBody ClienteDto clienteDto);
 	
 	@DeleteMapping(path="/eliminar/{dniCl}")
 	public void eliminar(@PathVariable("dniCl") int dniCl);
@@ -47,7 +48,7 @@ public interface ClienteServicioInt {
 	public List<Map<String, Object>> buscarClienteSeguro();
 	
 	@PostMapping(path="/update/{dniCl}/codigo/{codPostal}")
-	public int updateClienteCodigoPostal(@PathVariable int dniCl, @PathVariable int codPostal);
+	public ResponseEntity<Integer> updateClienteCodigoPostal(@PathVariable int dniCl, @PathVariable int codPostal);
 	
 	@GetMapping(path = "/buscar/apellido/{apellido}")
 	public List<Cliente> buscarApellido(@PathVariable String apellido);

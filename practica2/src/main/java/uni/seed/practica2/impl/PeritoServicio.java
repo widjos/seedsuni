@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.common.ConversionDto;
@@ -35,9 +37,14 @@ public class PeritoServicio implements PeritoServicioInt{
 	}
 	
 	@Override
-	public Perito guardar(PeritoDto peritoDto){
-		Perito perito =  conversionDto.convertirPeritoDtoToPerito(peritoDto);
-		return peritoRepository.save(perito);
+	public ResponseEntity<Perito> guardar(PeritoDto peritoDto){
+		try {
+			Perito perito =  conversionDto.convertirPeritoDtoToPerito(peritoDto);
+			return new ResponseEntity<>(peritoRepository.save(perito),null,HttpStatus.OK);
+		}catch(Exception exp) {
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 	
@@ -66,8 +73,12 @@ public class PeritoServicio implements PeritoServicioInt{
 	}
 
 	@Override
-	public int nuevoPerito(PeritoDto peritoDto) {
-		return catalogoServicio.nuevoPerito(peritoDto);
+	public ResponseEntity<Integer> nuevoPerito(PeritoDto peritoDto) {
+		try {
+			return new ResponseEntity<>(catalogoServicio.nuevoPerito(peritoDto), null, HttpStatus.OK);
+		}catch(Exception exp) {
+			return new ResponseEntity<>(null,null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
 	}
 

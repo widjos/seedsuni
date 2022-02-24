@@ -1,5 +1,6 @@
 package uni.seed.practica2.ws;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,5 +15,5 @@ import uni.seed.practica2.dto.SeguroDto;
 public interface FunctionInt {
 
 	@PostMapping(path="/nuevo/seguro")
-	public int nuevoSeguro(@RequestBody SeguroDto seguro);
+	public ResponseEntity<Integer> nuevoSeguro(@RequestBody SeguroDto seguro);
 }

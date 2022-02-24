@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import uni.seed.practica2.common.ConversionDto;
@@ -41,40 +43,51 @@ public class CompaniaSeguroServicio implements CompaniaSeguroServicioInt{
 	}
 	
 	@Override
-	public CompaniaSeguro guardar(CompaniaSeguroDto companiaSeguroDto, String nombreCompania,int numeroPoliza) {
-		CompaniaSeguro companiaSeguro = conversionDto.convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
-		List<Compania> compania = companiaRepository.findAll();
-		List<Seguro> seguro = seguroRepository.findAll();
-		for(Compania com : compania) {
-			if(com.getNombreCompania().equals(nombreCompania)) {
-				companiaSeguro.setCompania(com);
-			}
-		}
-		for(Seguro  seg : seguro) {
-			if(seg.getNumeroPoliza() == numeroPoliza) {
-				companiaSeguro.setSeguro(seg);
-			}
-		}
+	public ResponseEntity<CompaniaSeguro> guardar(CompaniaSeguroDto companiaSeguroDto, String nombreCompania,int numeroPoliza) {
 		
-		if(companiaSeguro.getCompania() != null && companiaSeguro.getSeguro() != null) {
-			return companiaSeguroRepository.save(companiaSeguro);
-		}else {
-			return null;
-		}		
+		try {
+			CompaniaSeguro companiaSeguro = conversionDto.convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
+			List<Compania> compania = companiaRepository.findAll();
+			List<Seguro> seguro = seguroRepository.findAll();
+			for(Compania com : compania) {
+				if(com.getNombreCompania().equals(nombreCompania)) {
+					companiaSeguro.setCompania(com);
+				}
+			}
+			for(Seguro  seg : seguro) {
+				if(seg.getNumeroPoliza() == numeroPoliza) {
+					companiaSeguro.setSeguro(seg);
+				}
+			}
+			return new ResponseEntity<>(companiaSeguroRepository.save(companiaSeguro), null,HttpStatus.OK);
+		}catch(Exception e) {
+			
+			return new ResponseEntity<>(null,null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+
 	}
 	
 	@Override
-	public CompaniaSeguro guardarCompaniaYSeguro(CompaniaSeguroDto companiaSeguroDto) {
-		CompaniaSeguro companiaSeguro = conversionDto.convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
-		Seguro seguro = companiaSeguro.getSeguro();
-		companiaSeguro.setSeguro(null);
-		seguroRepository.save(seguro);
-		Compania compania = companiaSeguro.getCompania();
-		companiaSeguro.setCompania(null);
-		companiaRepository.save(compania);
-		companiaSeguro.setCompania(compania);
-		companiaSeguro.setSeguro(seguro);
-		return companiaSeguroRepository.save(companiaSeguro);
+	public ResponseEntity<CompaniaSeguro> guardarCompaniaYSeguro(CompaniaSeguroDto companiaSeguroDto) {
+		
+		try {
+			CompaniaSeguro companiaSeguro = conversionDto.convertirCompaniaSeguroToDtoVersion(companiaSeguroDto);
+			Seguro seguro = companiaSeguro.getSeguro();
+			companiaSeguro.setSeguro(null);
+			seguroRepository.save(seguro);
+			Compania compania = companiaSeguro.getCompania();
+			companiaSeguro.setCompania(null);
+			companiaRepository.save(compania);
+			companiaSeguro.setCompania(compania);
+			companiaSeguro.setSeguro(seguro);
+			return new ResponseEntity<>(companiaSeguroRepository.save(companiaSeguro), null, HttpStatus.OK);
+			
+		}catch(Exception exp) {
+			
+			return new ResponseEntity<>(null,null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		
 	}
 	

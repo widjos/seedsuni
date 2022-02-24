@@ -2,6 +2,7 @@ package uni.seed.practica2.ws;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,10 @@ public interface SiniestroServicioInt {
 	public List<Siniestro> buscar();
 	
 	@PostMapping(path="/guardar/seguro/{numeroPoliza}/perito/{dniPerito}")
-	public Siniestro guardar(@RequestBody SiniestroDto  siniestroDto, @PathVariable int numeroPoliza , @PathVariable int dniPerito);
+	public ResponseEntity<Siniestro> guardar(@RequestBody SiniestroDto  siniestroDto, @PathVariable int numeroPoliza , @PathVariable int dniPerito);
 	
 	@PostMapping(path="/guardar/seguro/perito")
-	public Siniestro guardarSeguroPerito(@RequestBody SiniestroDto siniestroDto);
+	public ResponseEntity<Siniestro> guardarSeguroPerito(@RequestBody SiniestroDto siniestroDto);
 	
 	@DeleteMapping(path="/eliminar/{idSiniestro}")
 	public void eliminar(@PathVariable int idSiniestro);
