@@ -55,4 +55,10 @@ public interface ClienteServicioInt {
 	
 	@GetMapping(path = "/buscar/paginacion/{pagina}/{cantidad}")
 	public Page<Cliente> buscar(@PathVariable int pagina, @PathVariable int cantidad);
+	
+	@GetMapping(path = "/buscar/numero/cuentas/{numeroPoliza}")
+	public List<Cliente> buscarCantidadSeguros(@PathVariable int numeroPoliza);
+	
+	@GetMapping(path = "/buscar/total/seguros/{dniCl}")
+	public Long  buscarTotalSeguros(@PathVariable int dniCl);
 }

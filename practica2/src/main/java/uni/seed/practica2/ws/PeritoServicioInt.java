@@ -2,6 +2,7 @@ package uni.seed.practica2.ws;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +42,7 @@ public interface PeritoServicioInt {
 	@PostMapping(path="/nuevo")
 	public ResponseEntity<Integer>  nuevoPerito(@RequestBody PeritoDto peritoDto);
 	
-
+	@GetMapping(path="/buscar/paginas/ordenado/{pagina}/{cantidad}")
+	public Page<Perito> buscarPeritoOrdenadoConPaginado(@PathVariable int pagina, @PathVariable int cantidad);
 
 }

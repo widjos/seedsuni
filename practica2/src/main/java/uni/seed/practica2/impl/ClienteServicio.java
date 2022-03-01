@@ -122,5 +122,17 @@ public class ClienteServicio implements ClienteServicioInt {
 		Pageable pageable = PageRequest.of(pagina, cantidad);
 		return clienteRepository.findAll(pageable);
 	}
+
+	@Override
+	public List<Cliente> buscarCantidadSeguros(int numeroPoliza) {
+		return clienteRepository.buscarNumeroPolizasPorCliente(numeroPoliza);
+	}
+
+	@Override
+	public Long buscarTotalSeguros(int dniCl) {
+		return clienteRepository.buscarTotalPolizasCliente(dniCl);
+	}
+
+
 	
 }

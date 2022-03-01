@@ -66,4 +66,5 @@ public class SeguroServicio implements SeguroServicioInt {
 		return seguroRepository.findByNumeroPoliza(numeroPoliza);
 	}
 
+	
 }

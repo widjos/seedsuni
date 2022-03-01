@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -80,6 +83,12 @@ public class PeritoServicio implements PeritoServicioInt{
 			return new ResponseEntity<>(null,null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+	}
+
+	@Override
+	public Page<Perito> buscarPeritoOrdenadoConPaginado(int pagina, int cantidad) {
+		Pageable paginador = PageRequest.of(pagina,cantidad);
+		return peritoRepository.buscarTodosEnOrden(paginador);
 	}
 
 

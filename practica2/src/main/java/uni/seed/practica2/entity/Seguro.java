@@ -41,7 +41,7 @@ public class Seguro  implements Serializable{
 	@Column(name="OBSERVACIONES")
 	private String observaciones;
 	
-
+	
 	@Column(name="DNI_CL")
 	private Integer dniCl;
 	

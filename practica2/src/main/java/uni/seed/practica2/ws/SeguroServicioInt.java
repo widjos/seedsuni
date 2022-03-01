@@ -38,4 +38,6 @@ public interface SeguroServicioInt {
 	
 	@GetMapping(path="/buscar/poliza/{numeroPoliza}")
 	public List<Seguro> buscarPorCompaniaAsc(@PathVariable int numeroPoliza);
+	
+
 }
