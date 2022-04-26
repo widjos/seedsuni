@@ -15,6 +15,8 @@ public interface ClienteRepository  extends JpaRepository<Cliente, Serializable>
 	
 	public List<Cliente> findByApellido2OrCiudad(String apellido2, String ciudad);
 	
+	public Cliente findByEmailAndPassword(String email, String password);
+	
 	public Cliente findByNombreClStartingWith(String nombreIniciales);
 	
 	public List<Cliente> findByApellido1OrApellido2(String apellido1, String apellido2);

@@ -133,6 +133,11 @@ public class ClienteServicio implements ClienteServicioInt {
 		return clienteRepository.buscarTotalPolizasCliente(dniCl);
 	}
 
+	@Override
+	public Cliente buscarEmailYCiudad(String email, String password) {
+		return clienteRepository.findByEmailAndPassword(email, password);
+	}
+
 
 	
 }

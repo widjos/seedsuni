@@ -35,6 +35,12 @@ public class Cliente  implements Serializable{
 	@Column(name="NOMBRE_CL")
 	private String nombreCl;
 	
+	@Column(name="PASSWORD")
+	private String password;
+	
+	@Column(name="EMAIL")
+	private String email;
+	
 	@Column(name="APELLIDO_1")
 	private String  apellido1;
 	

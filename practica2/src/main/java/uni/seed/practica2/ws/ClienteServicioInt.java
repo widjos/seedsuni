@@ -41,6 +41,9 @@ public interface ClienteServicioInt {
 	@GetMapping(path="/buscar/apellido2/{apellido2}/or/ciudad/{ciudad}")
 	public List<Cliente> buscarApellido2OCiudad(@PathVariable String apellido2, @PathVariable String  ciudad);
 	
+	@GetMapping(path="/buscar/email/password")
+	public Cliente buscarEmailYCiudad(String email,String password);
+	
 	@GetMapping(path="/buscar/nombre/like/{nombreIniciales}")
 	public Cliente buscarNombreLike(@PathVariable String nombreIniciales);
 	
