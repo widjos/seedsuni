@@ -138,6 +138,15 @@ public class ClienteServicio implements ClienteServicioInt {
 		return clienteRepository.findByEmailAndPassword(email, password);
 	}
 
+	@Override
+	public ResponseEntity<Object> logout() {
+		try {
+			return new ResponseEntity<>( null, HttpStatus.FORBIDDEN);
+		}catch(Exception exp) {
+			return new ResponseEntity<>( null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 
 	
 }

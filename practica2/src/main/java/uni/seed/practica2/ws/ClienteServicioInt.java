@@ -29,6 +29,9 @@ public interface ClienteServicioInt {
 	@PostMapping(path="/guardar")
 	public ResponseEntity<Cliente>  guardar(@RequestBody ClienteDto clienteDto);
 	
+	@GetMapping(path="/logout")
+	public ResponseEntity logout();
+	
 	@PostMapping(path="/guardar/seguro")
 	public ResponseEntity<Cliente> guardarSeguro(@RequestBody ClienteDto clienteDto);
 	
